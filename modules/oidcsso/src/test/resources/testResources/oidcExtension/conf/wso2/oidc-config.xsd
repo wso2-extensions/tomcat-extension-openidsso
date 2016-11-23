@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" elementFormDefault="qualified"
+           xmlns="http://wso2.org/2016/oidc-config" targetNamespace="http://wso2.org/2016/oidc-config">
+
+    <xs:element name="oidc-config">
+        <xs:complexType>
+            <xs:sequence>
+
+                <xs:element name="enable" type="xs:boolean" minOccurs="0" maxOccurs="1"
+                            default="false"/>
+                <xs:element name="client-id" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="client-secret" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="redirect-uri" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="scope" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="claims" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="response-type" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="grant-type" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="authentication-endpoint" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="token-endpoint" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="user-info-endpoint" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="logout-endpoint" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="trust-store" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="location" type="xs:anyURI"/>
+                            <xs:element name="type" default="JKS">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="JKS"/>
+                                        <xs:enumeration value="PKCS11"/>
+                                        <xs:enumeration value="PKCS12"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="key-alias" type="xs:string"/>
+                            <xs:element name="password" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
