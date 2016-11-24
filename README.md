@@ -51,13 +51,13 @@ Checkout the project using below command
     
  8. Open the <project_root>/samples/oidc-sample-apps/coffee-shop/src/main/webapp/META-INF/oidc-config.xml
  
-            * add client key under ‘client-id’ tag
-            * add client secret under ‘client-secret’ tag
+	* add client key under ‘client-id’ tag
+	* add client secret under ‘client-secret’ tag
  9. Repeat the above steps to register a service provider for the pizza-shop application. Use the following values:
  
-            * Service Provider Name - pizza-shop
-            * Callback Url - http://localhost:8080/pizza-shop/openid
-            * Add the client key and client secret to the oidc-config.xml file in the <project_root>/samples/oidc-sample-apps/pizza-shop/src/main/webapp/META-INF directory.
+	* Service Provider Name - pizza-shop
+	* Callback Url - http://localhost:8080/pizza-shop/openid
+	* Add the client key and client secret to the oidc-config.xml file in the <project_root>/samples/oidc-sample-apps/pizza-shop/src/main/webapp/META-INF directory.
 
 
 
