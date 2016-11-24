@@ -28,9 +28,9 @@ Here WSO2 Identity Server will act as the identity provider for service provider
 We have to register web apps as service providers to give them the single sign on capability.
 Follow the below steps to register coffee-shop app and pizza-shop applications as service providers.
 
-    1. Log into the management console of WSO2 IS.
-    2. Click ‘Service Providers -> Add’ in the navigator.
-    3. Enter 'coffee-shop' in the Service Provider Name field in the Add New Service Provider screen.
+1. Log into the management console of WSO2 IS.
+2. Click ‘Service Providers -> Add’ in the navigator.
+3. Enter 'coffee-shop' in the Service Provider Name field in the Add New Service Provider screen.
 
 ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-1.png)
     
