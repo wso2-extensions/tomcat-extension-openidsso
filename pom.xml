@@ -46,7 +46,6 @@
                 <artifactId>tomcat-servlet-api</artifactId>
                 <version>${tomcat.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
@@ -82,7 +81,6 @@
                 <artifactId>commons-pool</artifactId>
                 <version>${commons-pool.version}</version>
             </dependency>
-
             <!-- https://mvnrepository.com/artifact/com.nimbusds/oauth2-oidc-sdk -->
             <dependency>
                 <groupId>com.nimbusds</groupId>
@@ -95,7 +93,6 @@
                 <artifactId>json-smart</artifactId>
                 <version>${net.minidev.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.nimbusds</groupId>
                 <artifactId>lang-tag</artifactId>
@@ -119,7 +116,6 @@
                 <artifactId>nimbus-jose-jwt</artifactId>
                 <version>${com.nimbusds.nimbus-jose.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.jacoco</groupId>
                 <artifactId>org.jacoco.agent</artifactId>
@@ -139,7 +135,6 @@
                 <version>${testng.version}</version>
                 <scope>test</scope>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -153,19 +148,15 @@
         <commons.lang.version>2.6</commons.lang.version>
         <commons.lang3.version>3.4</commons.lang3.version>
         <commons-pool.version>1.5.7</commons-pool.version>
-
         <com.nimbusds.version>5.17.1</com.nimbusds.version>
         <net.minidev.version>1.0.6.3</net.minidev.version>
         <nimbusds.lang-tag.version>1.4.3</nimbusds.lang-tag.version>
         <org.apache.commons.version>4.0</org.apache.commons.version>
         <javax.mail.version>1.4</javax.mail.version>
         <com.nimbusds.nimbus-jose.version>4.26</com.nimbusds.nimbus-jose.version>
-
         <jacoco.version>0.7.6.201602180812</jacoco.version>
         <org.mockito.mockito-all.version>1.10.19</org.mockito.mockito-all.version>
         <testng.version>6.9.10</testng.version>
     </properties>
-
-
 </project>
 

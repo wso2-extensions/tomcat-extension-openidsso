@@ -168,8 +168,8 @@ public class OIDCAgent {
      * @throws AuthenticationResponseException if the validation fails.
      */
     private AuthenticationResponse validateAuthenticationResponse(AuthenticationResponse authenticationResponse,
-                                                                  AuthenticationSuccessResponse successResponse,
-                                                                  StateStore stateStore)
+                                                          AuthenticationSuccessResponse successResponse,
+                                                          StateStore stateStore)
             throws AuthenticationResponseException {
         if (stateStore.getStates().contains(successResponse.getState().toString())) {
             stateStore.getStates().remove(successResponse.getState().toString());
@@ -177,7 +177,7 @@ public class OIDCAgent {
             authenticationResponse.setSessionState(successResponse.getSessionState().toString());
             return authenticationResponse;
         } else {
-            return authenticationResponse;
+            throw new AuthenticationResponseException("State store does not has the state value in the response.");
         }
     }
 
@@ -235,16 +235,18 @@ public class OIDCAgent {
         } catch (ParseException e) {
             throw new TokenException("Error occured while parsing the received response to oidc token response.", e);
         }
-        IDTokenClaimsSet claimsSet = validateIDToken(oidcConfiguration, oidcTokenResponse);
-        if (claimsSet != null) {
-            tokenResponse.setAccessToken(oidcTokenResponse.getOIDCTokens().getAccessToken().toString());
-            tokenResponse.setRefreshToken(oidcTokenResponse.getOIDCTokens().getRefreshToken().toString());
-            tokenResponse.setIdToken(oidcTokenResponse.getOIDCTokens().getIDTokenString());
-            tokenResponse.setTokenType(oidcTokenResponse.toJSONObject().get(Constants.TOKEN_TYPE).toString());
-            tokenResponse.setExpiresIn(oidcTokenResponse.toJSONObject().get(Constants.EXPIRES_IN).toString());
-            tokenResponse.setIdTokenClaimSet(claimsSet.toJSONObject().toJSONString());
-            return tokenResponse;
+        IDTokenClaimsSet claimsSet;
+        try {
+            claimsSet = validateIDToken(oidcConfiguration, oidcTokenResponse);
+        } catch (TokenException e) {
+            throw new TokenException("Error occurred while getting the id token claim set.", e);
         }
+        tokenResponse.setAccessToken(oidcTokenResponse.getOIDCTokens().getAccessToken().toString());
+        tokenResponse.setRefreshToken(oidcTokenResponse.getOIDCTokens().getRefreshToken().toString());
+        tokenResponse.setIdToken(oidcTokenResponse.getOIDCTokens().getIDTokenString());
+        tokenResponse.setTokenType(oidcTokenResponse.toJSONObject().get(Constants.TOKEN_TYPE).toString());
+        tokenResponse.setExpiresIn(oidcTokenResponse.toJSONObject().get(Constants.EXPIRES_IN).toString());
+        tokenResponse.setIdTokenClaimSet(claimsSet.toJSONObject().toJSONString());
         return tokenResponse;
     }
 
@@ -257,7 +259,7 @@ public class OIDCAgent {
      * @return the id token claims if the validation is successful.
      * @throws TokenException if any error occur during the validation.
      */
-    IDTokenClaimsSet validateIDToken(OIDCConfiguration oidcConfiguration, OIDCTokenResponse oidcTokenResponse)
+    private IDTokenClaimsSet validateIDToken(OIDCConfiguration oidcConfiguration, OIDCTokenResponse oidcTokenResponse)
             throws TokenException {
         OIDCConfiguration.Truststore store = oidcConfiguration.getTruststore();
         Issuer issuer = new Issuer(oidcConfiguration.getTokenEndpoint());

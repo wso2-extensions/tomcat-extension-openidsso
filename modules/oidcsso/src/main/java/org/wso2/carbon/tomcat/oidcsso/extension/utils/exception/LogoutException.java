@@ -20,9 +20,6 @@ package org.wso2.carbon.tomcat.oidcsso.extension.utils.exception;
  *
  */
 public class LogoutException extends Exception {
-    public LogoutException(Throwable cause) {
-        super(cause);
-    }
 
     public LogoutException(String message, Throwable cause) {
         super(message, cause);

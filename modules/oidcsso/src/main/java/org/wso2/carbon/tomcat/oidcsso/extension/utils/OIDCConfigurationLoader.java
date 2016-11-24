@@ -105,7 +105,8 @@ public class OIDCConfigurationLoader implements LifecycleListener {
      * @param context the {@link Context} for which the final set of context level configurations are generated
      * @return the final set of context level configurations for the specified {@link Context}
      */
-    private static OIDCConfiguration getEffectiveConfiguration(Context context) {
+    private static OIDCConfiguration getEffectiveConfiguration(Context context)
+            throws OIDCConfigurationRuntimeException {
         if (context != null) {
             Path schemaPath = Paths.
                     get(PATH_APP_SERVER_CONFIG_BASE.toString(), Constants.WEBAPP_DESCRIPTOR_SCHEMA);
@@ -186,7 +187,7 @@ public class OIDCConfigurationLoader implements LifecycleListener {
      * @return an XML unmarshaller for the defined Java classes
      * @throws OIDCConfigurationException if an error occurs when creating the XML unmarshaller
      */
-    private static Unmarshaller getXMLUnmarshaller(Path schemaPath, Class... classes)
+    public static Unmarshaller getXMLUnmarshaller(Path schemaPath, Class... classes)
             throws OIDCConfigurationException {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(classes);
@@ -218,7 +219,7 @@ public class OIDCConfigurationLoader implements LifecycleListener {
      * @throws OIDCConfigurationException if an error occurred when creating the unmarshaller or
      *                                    unmarshalling the XML source
      */
-    private static <T> T getUnmarshalledObject(Path source, Path schema, Class<T> bindingClass)
+    public static <T> T getUnmarshalledObject(Path source, Path schema, Class<T> bindingClass)
             throws OIDCConfigurationException {
         try {
             Unmarshaller unmarshaller = getXMLUnmarshaller(schema, bindingClass);
@@ -243,7 +244,5 @@ public class OIDCConfigurationLoader implements LifecycleListener {
                     truststore.getPassword());
             System.setProperty(Constants.JAVA_TRUST_STORE_TYPE, truststore.getType());
         });
-
-
     }
 }

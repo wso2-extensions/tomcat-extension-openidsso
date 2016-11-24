@@ -19,11 +19,9 @@ public class Constants {
     public static final String STATE = "state";
     public static final String SCOPE = "scope";
     public static final String CUSTOM_PARAMETERS = "custom_parameters";
-    public static final String WEB_APP_CONFIGURATION = "webAppConfiguration";
     public static final Character SEPERATOR = '?';
     public static final String CLIENT_ID = "clientID";
     public static final String SESSION_STATE = "session_state";
-    public static final String AUTHENTICATION_REQUEST = "authenticationRequest";
     public static final String CLAIMS = "claims";
     public static final String ERROR = "error";
     public static final String CODE = "code";
@@ -42,7 +40,6 @@ public class Constants {
     public static final String ALGORITHM_TYPE = "RS256";
     public static final String MODULUS = "n";
     public static final String EXPONENT = "e";
-
     public static final String TOMCAT_CONFIGURATION_DIRECTORY = "conf";
     public static final String OIDC_CONFIGURATION_DIRECTORY = "wso2";
     public static final String WEBAPP_DESCRIPTOR = "oidc-config.xml";

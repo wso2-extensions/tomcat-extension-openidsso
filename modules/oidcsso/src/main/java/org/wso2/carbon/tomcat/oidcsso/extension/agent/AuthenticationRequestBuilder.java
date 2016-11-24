@@ -98,8 +98,13 @@ final class AuthenticationRequestBuilder {
         stateStore.storeState(String.valueOf(state1));
         ClaimsRequest claimsRequest = new ClaimsRequest();
         claimsList.forEach(claimsRequest::addUserInfoClaim);
-        AuthenticationRequest.Builder authenticationRequest = new AuthenticationRequest.Builder(responseType1, scope1,
-                clientID1, redirectURI);
+        AuthenticationRequest.Builder authenticationRequest;
+        try {
+            authenticationRequest = new AuthenticationRequest.Builder(responseType1, scope1, clientID1, redirectURI);
+        } catch (IllegalArgumentException e) {
+            throw new
+                    AuthenticationRequestException("Error occurred while creating a authentication request builder", e);
+        }
         authenticationRequest.endpointURI(authenticationEndpoint);
         authenticationRequest.state(state1);
         authenticationRequest.claims(claimsRequest);

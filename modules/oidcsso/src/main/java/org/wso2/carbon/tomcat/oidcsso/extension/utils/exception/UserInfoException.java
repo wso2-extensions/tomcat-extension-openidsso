@@ -21,15 +21,7 @@ package org.wso2.carbon.tomcat.oidcsso.extension.utils.exception;
  */
 public class UserInfoException extends Exception {
 
-    public UserInfoException(String message) {
-        super(message);
-    }
-
     public UserInfoException(String message, Throwable cause) {
         super(message, cause);
-    }
-
-    public UserInfoException(Throwable cause) {
-        super(cause);
     }
 }

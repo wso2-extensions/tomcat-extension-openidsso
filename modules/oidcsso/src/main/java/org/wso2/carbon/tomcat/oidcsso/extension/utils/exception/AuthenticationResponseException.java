@@ -21,12 +21,9 @@ package org.wso2.carbon.tomcat.oidcsso.extension.utils.exception;
  */
 
 public class AuthenticationResponseException extends Exception {
+
     public AuthenticationResponseException(String message) {
         super(message);
-    }
-
-    public AuthenticationResponseException(Throwable cause) {
-        super(cause);
     }
 
     public AuthenticationResponseException(String message, Throwable cause) {

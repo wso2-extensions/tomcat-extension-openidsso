@@ -20,9 +20,6 @@ package org.wso2.carbon.tomcat.oidcsso.extension.utils.exception;
  * This class defines the exception type which is used in generating authentication request
  */
 public class AuthenticationRequestException extends Exception {
-    public AuthenticationRequestException(String message) {
-        super(message);
-    }
 
     public AuthenticationRequestException(String message, Throwable cause) {
         super(message, cause);

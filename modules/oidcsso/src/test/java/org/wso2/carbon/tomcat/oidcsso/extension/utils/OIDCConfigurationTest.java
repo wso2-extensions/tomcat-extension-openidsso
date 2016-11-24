@@ -29,6 +29,7 @@ import org.apache.commons.lang3.text.StrSubstitutor;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.wso2.carbon.tomcat.oidcsso.extension.Constants;
 import org.wso2.carbon.tomcat.oidcsso.extension.TestConstants;
 import org.wso2.carbon.tomcat.oidcsso.extension.utils.exception.OIDCConfigurationException;
 import org.wso2.carbon.tomcat.oidcsso.extension.utils.exception.OIDCConfigurationRuntimeException;
@@ -49,6 +50,7 @@ public class OIDCConfigurationTest {
     private static final Host host = new StandardHost();
     private static final Context sample_context = new StandardContext();
     private static final Context faulty_sample_context = new StandardContext();
+    private static final Context no_context = new StandardContext();
     private static final StrSubstitutor string_sub = new StrSubstitutor(System.getenv());
 
     @BeforeClass
@@ -98,12 +100,40 @@ public class OIDCConfigurationTest {
         Assert.assertFalse(configuration.isPresent());
     }
 
+    @Test(description = "Attempts to load the XML file content with a non-existent XML schema file for validation",
+            expectedExceptions = { OIDCConfigurationException.class }, priority = 5)
+    public void testLoadingObjectFromNonExistentSchemaAsPath()
+            throws IOException, OIDCConfigurationException {
+        OIDCConfigurationLoader oidcConfigurationLoader = new OIDCConfigurationLoader();
+        Path xmlSource = Paths.get(TestConstants.TEST_RESOURCES, Constants.WEBAPP_DESCRIPTOR);
+        Path xmlSchema = Paths.get(TestConstants.TEST_RESOURCES, TestConstants.NON_EXISTENT_SCHEMA);
+        oidcConfigurationLoader.getUnmarshalledObject(xmlSource, xmlSchema, OIDCConfiguration.class);
+    }
+
+    @Test(description = "Uses an invalid XML schema file for validation",
+            expectedExceptions = { OIDCConfigurationException.class }, priority = 6)
+    public void testLoadingObjectWithInvalidSchema() throws IOException, OIDCConfigurationException {
+        OIDCConfigurationLoader oidcConfigurationLoader = new OIDCConfigurationLoader();
+        Path xmlSchema = Paths.get(TestConstants.TEST_RESOURCES, TestConstants.INVALID_SCHEMA_FILE);
+        oidcConfigurationLoader.getXMLUnmarshaller(xmlSchema, OIDCConfiguration.class);
+    }
+
+    @Test(description = "Attempts to load content from a file source with invalid XML syntax",
+            expectedExceptions = { OIDCConfigurationException.class }, priority = 7)
+    public void testLoadingObjectFromInvalidFile() throws IOException, OIDCConfigurationException {
+        OIDCConfigurationLoader oidcConfigurationLoader = new OIDCConfigurationLoader();
+        Path xmlSource = Paths.get(TestConstants.TEST_RESOURCES, TestConstants.INVALID_DESCRIPTOR);
+        Path xmlSchema = Paths.get(TestConstants.TEST_RESOURCES, Constants.WEBAPP_DESCRIPTOR_SCHEMA);
+        oidcConfigurationLoader.getUnmarshalledObject(xmlSource, xmlSchema, OIDCConfiguration.class);
+    }
     private static void prepareCatalinaComponents() {
         host.setAppBase(TestConstants.WEB_APP_BASE);
         sample_context.setParent(host);
         sample_context.setDocBase(TestConstants.SAMPLE_WEB_APP);
         faulty_sample_context.setParent(host);
         faulty_sample_context.setDocBase(TestConstants.FAULTY_SAMPLE_WEB_APP);
+        no_context.setParent(host);
+        no_context.setDocBase(TestConstants.NO_WEB_APP);
     }
 
     private static OIDCConfiguration prepareOIDCConfiguration() {
