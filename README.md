@@ -28,32 +28,32 @@ Checkout the project using below command
  We have to register web apps as service providers to give them the single sign on capability.
  Follow the below steps to register coffee-shop app and pizza-shop applications as service providers.
 
- 1. Log into the management console of WSO2 IS.
- 2. Click ‘Service Providers -> Add’ in the navigator.
- 3. Enter 'coffee-shop' in the Service Provider Name field in the Add New Service Provider screen.
+1. Log into the management console of WSO2 IS.
+2. Click ‘Service Providers -> Add’ in the navigator.
+3. Enter 'coffee-shop' in the Service Provider Name field in the Add New Service Provider screen.
 
-![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-1.png)
+![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-1.png)
     
- 4. Click Register to open the Service Providers screen.
- 5. Click ‘Inbound Authentication Configuration ->  OAuth/OpenID Connect Configuration’ and click ‘Configure’.
+4. Click Register to open the Service Providers screen.
+5. Click ‘Inbound Authentication Configuration ->  OAuth/OpenID Connect Configuration’ and click ‘Configure’.
     
-![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-2.png)
+![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-2.png)
     
- 6. You can now start specifying the OIDC related configurations for the service provider.
+6. You can now start specifying the OIDC related configurations for the service provider.
 
 	enter http://localhost:8080/coffee-shop/openid under Callback Url.
         
-![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-3.png)
+![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-3.png)
 
- 7. You will receive a client key and a client secret.
+7. You will receive a client key and a client secret.
     
-![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-4.png)
+![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-4.png)
     
- 8. Open the &lt;project_root&gt;/samples/oidc-sample-apps/coffee-shop/src/main/webapp/META-INF/oidc-config.xml
+8. Open the &lt;project_root&gt;/samples/oidc-sample-apps/coffee-shop/src/main/webapp/META-INF/oidc-config.xml
  
 	* add client key under ‘client-id’ tag
 	* add client secret under ‘client-secret’ tag
- 9. Repeat the above steps to register a service provider for the pizza-shop application. Use the following values:
+9. Repeat the above steps to register a service provider for the pizza-shop application. Use the following values:
  
 	* Service Provider Name - pizza-shop
 	* Callback Url - http://localhost:8080/pizza-shop/openid
@@ -86,22 +86,22 @@ Checkout the project using below command
 
 Start the tomcat server.
 
-1. Try accessing http://localhost:8080/coffee-shop/ .
+1. Try accessing [Named Link](http://localhost:8080/coffee-shop/)
 
-![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/home-page.png)
+![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/home-page.png)
 
 2. Click on ‘Sign In’.
 3. You will be re-directed to the Identity Server login page.
 
-![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-login.png)
+![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-login.png)
 
 4. Login with your user credentials and click on ‘SIGN IN’.
 5. Click Approve Always at the consent page.
 6. Now you can see the received values of token response.
-7. Now access to http://localhost:8080/pizza-shop/
+7. Now access to [Named Link](http://localhost:8080/pizza-shop/)
 8. Click on ‘Logout’ in the pizza-shop app. It will redirect to Identity Server. 
 
-![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-logout.png)
+![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-logout.png)
 
 9. Click on yes. 
 10. Go back to browser window of the coffee-shop app. You will see that the home page has been loaded which means coffee-shop app has been logged out. 
