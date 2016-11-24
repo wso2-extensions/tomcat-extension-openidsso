@@ -11,9 +11,9 @@ We will use two web applications named ‘pizza-shop’ and ‘coffee-shop’  w
 
 Tomcat 8 will be used to deploy web applications and WSO2 IS will be used as the identity provider that enables SSO and SLO.
 
-    1. Download Tomcat 8 and extract the zip file to your computer. 
+   1. Download Tomcat 8 and extract the zip file to your computer. 
         The extracted directory will be your <Tomcat_HOME> directory.
-    2. Download WSO2 IS and extract the zip file to your computer. 
+   2. Download WSO2 IS and extract the zip file to your computer. 
         The extracted directory will be your <IS_HOME> directory.
 
 ## Step 2: Checkout the project. ##
