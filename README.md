@@ -86,7 +86,7 @@ Checkout the project using below command
 
 Start the tomcat server.
 
-1. Try accessing [Named Link](http://localhost:8080/coffee-shop/)
+1. Try accessing <http://localhost:8080/coffee-shop/>
 
 ![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/home-page.png)
 
@@ -98,7 +98,7 @@ Start the tomcat server.
 4. Login with your user credentials and click on ‘SIGN IN’.
 5. Click Approve Always at the consent page.
 6. Now you can see the received values of token response.
-7. Now access to [Named Link](http://localhost:8080/pizza-shop/)
+7. Now access to <http://localhost:8080/pizza-shop/>
 8. Click on ‘Logout’ in the pizza-shop app. It will redirect to Identity Server. 
 
 ![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-logout.png)
