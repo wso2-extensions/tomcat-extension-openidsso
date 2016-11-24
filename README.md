@@ -67,20 +67,45 @@ Checkout the project using below command
 	
 ## Step 5: Add the necessary configurations and libraries ##
 
- 1. Open the sever.xml file (stored in the &lt;Tomcat_HOME&gt;/conf directory).
- 2. Add the following under the Service tag:
+1. Open the sever.xml file (stored in the &lt;Tomcat_HOME&gt;/conf directory).
+2. Add the following under the Service tag:
         `<Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
                    maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
                    clientAuth="false" sslProtocol="TLS" keystoreFile="conf/wso2/wso2carbon.jks"
                    keystorePass="wso2carbon"/>`
- 3. Add the following under the localhost container:
+3. Add the following under the localhost container:
 `<Valve className= "org.wso2.carbon.tomcat.oidcsso.extension.oidc.OIDCSSOValve"/>`	
- 4. Open the context.xml file (stored in the &lt;Tomcat_HOME&gt;/conf directory).
- 5. Add the following under the Context tag:
+4. Open the context.xml file (stored in the &lt;Tomcat_HOME&gt;/conf directory).
+5. Add the following under the Context tag:
 `<Listener className="org.wso2.carbon.tomcat.oidcsso.extension.utils.OIDCConfigurationLoader"/>`
- 6. Copy the &lt;project_root&gt;/modules/oidcsso/src/main/resources/wso2 folder to &lt;Tomcat_HOME&gt;/conf
- 7. copy the &lt;project_root&gt;/modules/oidcsso/target/oidcsso-1.0.1-SNAPSHOT-fat.jar to <Tomcat_HOME>/lib
- 8. Copy the &lt;project_root&gt;/samples/oidc-sample-apps/coffee-shop/target/coffee-shop.war and &lt;project_root&gt;/samples/oidc-sample-apps/pizza-shop/target/pizza-shop.war to &lt;Tomcat_HOME&gt;/webapps folder.
+6. Copy the &lt;project_root&gt;/modules/oidcsso/src/main/resources/wso2 folder to &lt;Tomcat_HOME&gt;/conf
+7. copy the &lt;project_root&gt;/modules/oidcsso/target/oidcsso-1.0.1-SNAPSHOT-fat.jar to <Tomcat_HOME>/lib
+8. Copy the &lt;project_root&gt;/samples/oidc-sample-apps/coffee-shop/target/coffee-shop.war and &lt;project_root&gt;/samples/oidc-sample-apps/pizza-shop/target/pizza-shop.war to &lt;Tomcat_HOME&gt;/webapps folder.
+
+## Step 6: Try out the samples. ##
+
+Start the tomcat server.
+
+1. Try accessing http://localhost:8080/coffee-shop/ .
+
+![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/home-page.png)
+
+2. Click on ‘Sign In’.
+3. You will be re-directed to the Identity Server login page.
+
+![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-login.png)
+
+4. Login with your user credentials and click on ‘SIGN IN’.
+5. Click Approve Always at the consent page.
+6. Now you can see the received values of token response.
+7. Now access to http://localhost:8080/pizza-shop/
+8. Click on ‘Logout’ in the pizza-shop app. It will redirect to Identity Server. 
+
+![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-logout.png)
+
+9. Click on yes. 
+10. Go back to browser window of the coffee-shop app. You will see that the home page has been loaded which means coffee-shop app has been logged out. 
+
 
 
 
