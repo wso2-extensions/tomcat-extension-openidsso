@@ -12,9 +12,9 @@
  Tomcat 8 will be used to deploy web applications and WSO2 IS will be used as the identity provider that enables SSO and SLO.
 
    1. Download Tomcat 8 and extract the zip file to your computer. 
-        The extracted directory will be your <Tomcat_HOME> directory.
+        The extracted directory will be your &lt;Tomcat_HOME&gt; directory.
    2. Download WSO2 IS and extract the zip file to your computer. 
-        The extracted directory will be your <IS_HOME> directory.
+        The extracted directory will be your &lt;IS_HOME&gt; directory.
 
 ## Step 2: Checkout the project. ##
 
@@ -49,7 +49,7 @@ Checkout the project using below command
     
 ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-4.png)
     
- 8. Open the <project_root>/samples/oidc-sample-apps/coffee-shop/src/main/webapp/META-INF/oidc-config.xml
+ 8. Open the &lt;project_root&gt;/samples/oidc-sample-apps/coffee-shop/src/main/webapp/META-INF/oidc-config.xml
  
 	* add client key under ‘client-id’ tag
 	* add client secret under ‘client-secret’ tag
@@ -57,7 +57,7 @@ Checkout the project using below command
  
 	* Service Provider Name - pizza-shop
 	* Callback Url - http://localhost:8080/pizza-shop/openid
-	* Add the client key and client secret to the oidc-config.xml file in the <project_root>/samples/oidc-sample-apps/pizza-shop/src/main/webapp/META-INF directory.
+	* Add the client key and client secret to the oidc-config.xml file in the &lt;project_root&gt;/samples/oidc-sample-apps/pizza-shop/src/main/webapp/META-INF directory.
 	
 ## Step 4: Build the project ‘tomcat-extension-openidsso’ ##
 
@@ -67,7 +67,7 @@ Checkout the project using below command
 	
 ## Step 5: Add the necessary configurations and libraries ##
 
- 1. Open the sever.xml file (stored in the <Tomcat_HOME>/conf directory).
+ 1. Open the sever.xml file (stored in the &lt;Tomcat_HOME&gt;/conf directory).
  2. Add the following under the Service tag:
         `<Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
                    maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
@@ -75,12 +75,12 @@ Checkout the project using below command
                    keystorePass="wso2carbon"/>`
  3. Add the following under the localhost container:
 `<Valve className= "org.wso2.carbon.tomcat.oidcsso.extension.oidc.OIDCSSOValve"/>`	
- 4. Open the context.xml file (stored in the <Tomcat_HOME>/conf directory).
+ 4. Open the context.xml file (stored in the &lt;Tomcat_HOME&gt;/conf directory).
  5. Add the following under the Context tag:
 `<Listener className="org.wso2.carbon.tomcat.oidcsso.extension.utils.OIDCConfigurationLoader"/>`
- 6. Copy the <project_root>/modules/oidcsso/src/main/resources/wso2 folder to <Tomcat_HOME>/conf
- 7. copy the <project_root>/modules/oidcsso/target/oidcsso-1.0.1-SNAPSHOT-fat.jar to <Tomcat_HOME>/lib
- 8. Copy the <project_root>/samples/oidc-sample-apps/coffee-shop/target/coffee-shop.war and <project_root>/samples/oidc-sample-apps/pizza-shop/target/pizza-shop.war to <Tomcat_HOME>/webapps folder.
+ 6. Copy the &lt;project_root&gt;/modules/oidcsso/src/main/resources/wso2 folder to &lt;Tomcat_HOME&gt;/conf
+ 7. copy the &lt;project_root&gt;/modules/oidcsso/target/oidcsso-1.0.1-SNAPSHOT-fat.jar to <Tomcat_HOME>/lib
+ 8. Copy the &lt;project_root&gt;/samples/oidc-sample-apps/coffee-shop/target/coffee-shop.war and &lt;project_root&gt;/samples/oidc-sample-apps/pizza-shop/target/pizza-shop.war to &lt;Tomcat_HOME&gt;/webapps folder.
 
 
 
