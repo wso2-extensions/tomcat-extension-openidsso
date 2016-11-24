@@ -69,15 +69,15 @@ Checkout the project using below command
 
  1. Open the sever.xml file (stored in the <Tomcat_HOME>/conf directory).
  2. Add the following under the Service tag:
-        '<Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+        `<Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
                    maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
                    clientAuth="false" sslProtocol="TLS" keystoreFile="conf/wso2/wso2carbon.jks"
-                   keystorePass="wso2carbon"/>'
+                   keystorePass="wso2carbon"/>`
  3. Add the following under the localhost container:
-'<Valve className= "org.wso2.carbon.tomcat.oidcsso.extension.oidc.OIDCSSOValve"/>'	
+`<Valve className= "org.wso2.carbon.tomcat.oidcsso.extension.oidc.OIDCSSOValve"/>`	
  4. Open the context.xml file (stored in the <Tomcat_HOME>/conf directory).
  5. Add the following under the Context tag:
-'<Listener className="org.wso2.carbon.tomcat.oidcsso.extension.utils.OIDCConfigurationLoader"/>'
+`<Listener className="org.wso2.carbon.tomcat.oidcsso.extension.utils.OIDCConfigurationLoader"/>`
  6. Copy the <project_root>/modules/oidcsso/src/main/resources/wso2 folder to <Tomcat_HOME>/conf
  7. copy the <project_root>/modules/oidcsso/target/oidcsso-1.0.1-SNAPSHOT-fat.jar to <Tomcat_HOME>/lib
  8. Copy the <project_root>/samples/oidc-sample-apps/coffee-shop/target/coffee-shop.war and <project_root>/samples/oidc-sample-apps/pizza-shop/target/pizza-shop.war to <Tomcat_HOME>/webapps folder.
