@@ -85,7 +85,6 @@ final class AuthenticationRequestBuilder {
      */
     String build(StateStore stateStore) throws AuthenticationRequestException {
         List<String> scopeList = Arrays.asList(scope.split("\\s*,\\s*"));
-        List<String> claimsList = Arrays.asList(claims.split("\\s*,\\s*"));
         ResponseType responseType1 = new ResponseType(responseType);
         Scope scope1 = new Scope(Scope.parse(scopeList));
         ClientID clientID1 = new ClientID(clientID);
@@ -96,8 +95,6 @@ final class AuthenticationRequestBuilder {
             state1 = new State(state);
         }
         stateStore.storeState(String.valueOf(state1));
-        ClaimsRequest claimsRequest = new ClaimsRequest();
-        claimsList.forEach(claimsRequest::addUserInfoClaim);
         AuthenticationRequest.Builder authenticationRequest;
         try {
             authenticationRequest = new AuthenticationRequest.Builder(responseType1, scope1, clientID1, redirectURI);
@@ -105,9 +102,14 @@ final class AuthenticationRequestBuilder {
             throw new
                     AuthenticationRequestException("Error occurred while creating a authentication request builder", e);
         }
+        ClaimsRequest claimsRequest = new ClaimsRequest();
+        if (!claims.isEmpty()) {
+            List<String> claimsList = Arrays.asList(claims.split("\\s*,\\s*"));
+            claimsList.forEach(claimsRequest::addUserInfoClaim);
+            authenticationRequest.claims(claimsRequest);
+        }
         authenticationRequest.endpointURI(authenticationEndpoint);
         authenticationRequest.state(state1);
-        authenticationRequest.claims(claimsRequest);
         if (customParameters != null) {
             customParameters.forEach((key, value) -> authenticationRequest
                     .customParameter(String.valueOf(key), String.valueOf(value)));

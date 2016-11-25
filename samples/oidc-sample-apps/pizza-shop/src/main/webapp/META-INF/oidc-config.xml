@@ -18,11 +18,11 @@
 
 
     <enable>true</enable>
-    <client-id>8lWfcRCd84iT3oKGpaeFEFoVhPIa</client-id>
-    <client-secret>RSaAuFl9bWlwT3Cx1xdyuhumyYIa</client-secret>
+    <client-id></client-id>
+    <client-secret></client-secret>
     <redirect-uri>http://localhost:8080/pizza-shop/openid</redirect-uri>
-    <scope>openid,profile</scope>
-    <claims>name</claims>
+    <scope>openid</scope>
+    <claims></claims>
     <authentication-endpoint>https://localhost:9443/oauth2/authorize</authentication-endpoint>
     <token-endpoint>https://localhost:9443/oauth2/token</token-endpoint>
     <user-info-endpoint>https://localhost:9443/oauth2/userinfo?schema=openid</user-info-endpoint>

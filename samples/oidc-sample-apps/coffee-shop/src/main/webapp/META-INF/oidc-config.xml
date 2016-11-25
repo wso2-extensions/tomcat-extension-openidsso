@@ -17,11 +17,11 @@
              xsi:schemaLocation="http://wso2.org/2016/oidc-config http://wso2.org/2016/oidc-config.xsd">
 
     <enable>true</enable>
-    <client-id>oI3sMnh7T1oTJNdKHERcKNIeiSAa</client-id>
-    <client-secret>ISNXP4gp_6jQWCc1lh_5_RBBkQIa</client-secret>
+    <client-id></client-id>
+    <client-secret></client-secret>
     <redirect-uri>http://localhost:8080/coffee-shop/openid</redirect-uri>
-    <scope>openid,profile</scope>
-    <claims>name</claims>
+    <scope>openid</scope>
+    <claims></claims>
     <authentication-endpoint>https://localhost:9443/oauth2/authorize</authentication-endpoint>
     <token-endpoint>https://localhost:9443/oauth2/token</token-endpoint>
     <user-info-endpoint>https://localhost:9443/oauth2/userinfo</user-info-endpoint>
