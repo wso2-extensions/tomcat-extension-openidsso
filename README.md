@@ -34,6 +34,7 @@ Checkout the project using below command
 
 ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-1.png)
 4. Click Register to open the Service Providers screen.
+
 5. Click ‘Inbound Authentication Configuration ->  OAuth/OpenID Connect Configuration’ and click ‘Configure’.
 
 
