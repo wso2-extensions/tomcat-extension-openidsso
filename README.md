@@ -33,17 +33,18 @@ Checkout the project using below command
 3. Enter 'coffee-shop' in the Service Provider Name field in the Add New Service Provider screen.
 
 ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-1.png)
-4. Click Register to open the Service Providers screen.
 
+4. Click Register to open the Service Providers screen.
 5. Click ‘Inbound Authentication Configuration ->  OAuth/OpenID Connect Configuration’ and click ‘Configure’.
 
-
 ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-2.png)
+
 6. You can now start specifying the OIDC related configurations for the service provider.
 
 	enter http://localhost:8080/coffee-shop/openid under Callback Url.
         
 ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-3.png)
+
 7. You will receive a client key and a client secret.
     
 ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-4.png)
