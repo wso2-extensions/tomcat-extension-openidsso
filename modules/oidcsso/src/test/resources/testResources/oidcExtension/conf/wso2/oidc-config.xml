@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<oidc-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wso2.org/2016/oidc-config"
+             xsi:schemaLocation="http://wso2.org/2016/oidc-config oidc-config.xsd">
+
+
+    <enable>false</enable>
+    <scope>openid</scope>
+    <response-type>code</response-type>
+    <grant-type>authorization_code</grant-type>
+    <authentication-endpoint>https://localhost:9443/oauth2/authorize</authentication-endpoint>
+    <token-endpoint>https://localhost:9443/oauth2/token</token-endpoint>
+    <user-info-endpoint>https://localhost:9443/oauth2/userinfo?schema=openid</user-info-endpoint>
+    <logout-endpoint>https://localhost:9443/oidc/logout</logout-endpoint>
+    <!--
+        The Application Server trust-store configurations. This is used as a store for third-party
+        SSL certificates for verification of credentials.
+    -->
+    <trust-store>
+        <!--
+            File path location of the Application Server trust-store. Environmental variable placeholders can
+            be used within the file path provided.
+         -->
+        <location>${catalina.base}/conf/wso2/client-truststore.jks</location>
+        <!-- The type of the trust-store. Types - JKS, PKCS11 and PKCS12 are recognized. -->
+        <type>JKS</type>
+        <!-- The alias of the private key. -->
+        <key-alias>wso2carbon</key-alias>
+        <!-- The password to unlock the trust-store file. -->
+        <password>wso2carbon</password>
+    </trust-store>
+
+</oidc-config>
