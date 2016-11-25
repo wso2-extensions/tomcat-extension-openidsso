@@ -43,10 +43,10 @@ Checkout the project using below command
 
 	enter http://localhost:8080/coffee-shop/openid under Callback Url.
         
-![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-3.png)
+![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-3.png)
 7. You will receive a client key and a client secret.
     
-![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-4.png)
+![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-4.png)
     
 8. Open the &lt;project_root&gt;/samples/oidc-sample-apps/coffee-shop/src/main/webapp/META-INF/oidc-config.xml
  
@@ -87,12 +87,12 @@ Start the tomcat server.
 
 1. Try accessing <http://localhost:8080/coffee-shop/>
 
-![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/home-page.png)
+![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/home-page.png)
 
 2. Click on ‘Sign In’.
 3. You will be re-directed to the Identity Server login page.
 
-![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-login.png)
+![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-login.png)
 
 4. Login with your user credentials and click on ‘SIGN IN’.
 5. Click Approve Always at the consent page.
@@ -100,7 +100,7 @@ Start the tomcat server.
 7. Now access to <http://localhost:8080/pizza-shop/>
 8. Click on ‘Logout’ in the pizza-shop app. It will redirect to Identity Server. 
 
-![picture alt](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-logout.png)
+![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-logout.png)
 
 9. Click on yes. 
 10. Go back to browser window of the coffee-shop app. You will see that the home page has been loaded which means coffee-shop app has been logged out. 
