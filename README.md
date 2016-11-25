@@ -105,11 +105,3 @@ Start the tomcat server.
 
 9. Click on yes. 
 10. Go back to browser window of the coffee-shop app. You will see that the home page has been loaded which means coffee-shop app has been logged out. 
-
-
-
-
-
-
-
-
