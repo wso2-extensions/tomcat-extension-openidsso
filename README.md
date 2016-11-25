@@ -86,12 +86,10 @@ Start the tomcat server.
 1. Try accessing <http://localhost:8080/coffee-shop/>
 
 ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/home-page.png)
-
 2. Click on ‘Sign In’.
 3. You will be re-directed to the Identity Server login page.
 
 ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-login.png)
-
 4. Login with your user credentials and click on ‘SIGN IN’.
 5. Click Approve Always at the consent page.
 6. Now you can see the received values of token response.
@@ -99,6 +97,5 @@ Start the tomcat server.
 8. Click on ‘Logout’ in the pizza-shop app. It will redirect to Identity Server. 
 
 ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-logout.png)
-
 9. Click on yes. 
 10. Go back to browser window of the coffee-shop app. You will see that the home page has been loaded which means coffee-shop app has been logged out. 
