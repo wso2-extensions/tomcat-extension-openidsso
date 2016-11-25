@@ -32,7 +32,7 @@ Checkout the project using below command
 2. Click ‘Service Providers -> Add’ in the navigator.
 3. Enter 'coffee-shop' in the Service Provider Name field in the Add New Service Provider screen.
 
-![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-1.png)
+[alt tag] (https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-1.png)
 4. Click Register to open the Service Providers screen.
 
 5. Click ‘Inbound Authentication Configuration ->  OAuth/OpenID Connect Configuration’ and click ‘Configure’.
