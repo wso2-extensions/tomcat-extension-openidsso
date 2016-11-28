@@ -17,10 +17,9 @@
 package org.wso2.carbon.tomcat.oidcsso.extension.bean;
 
 /**
- * A Java class which models a holder for the oidc authentication response parameters
+ * A class which models a holder for the oidc authentication response parameters.
  */
 public class AuthenticationResponse {
-
     private String code;
     private String sessionState;
 

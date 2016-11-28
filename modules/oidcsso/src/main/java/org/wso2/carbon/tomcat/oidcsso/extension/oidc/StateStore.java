@@ -19,7 +19,7 @@ package org.wso2.carbon.tomcat.oidcsso.extension.oidc;
 import java.util.List;
 
 /**
- * this interface defines the storage of state values in the authentication request of OpenID Connect
+ * This interface defines the storage of state values in the authentication request of OpenID Connect.
  */
 public interface StateStore {
     void storeState(String stateValue);

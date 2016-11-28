@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * this class defines the storage of state values in the authentication request of OpenID Connect in the inMemory using
- * ArrayList.
+ * This class defines the storage of state values in the authentication request of OpenID Connect in the inMemory using
+ * {@link ArrayList}.
  */
 public class InMemoryStateStore implements StateStore {
     private static List<String> states = new ArrayList<>();

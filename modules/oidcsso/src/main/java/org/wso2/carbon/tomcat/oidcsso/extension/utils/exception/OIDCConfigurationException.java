@@ -17,11 +17,10 @@
 package org.wso2.carbon.tomcat.oidcsso.extension.utils.exception;
 
 /**
- *
+ * This class defines a custom checked exception type specified for tomcat extension of openid sso which is thrown when
+ * the extension encounters configuration related issues.
  */
 public class OIDCConfigurationException extends Exception {
-
-    private static final long serialVersionUID = 2602473344009648264L;
 
     public OIDCConfigurationException(String message) {
         super(message);

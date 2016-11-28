@@ -1,7 +1,7 @@
 package org.wso2.carbon.tomcat.oidcsso.extension;
 
 /**
- *
+ * This class defines constants used within the tomcat extension for OpenID Connect.
  */
 public class Constants {
     public static final String OPENID = "openid";
@@ -51,4 +51,9 @@ public class Constants {
     public static final String JAVA_TRUST_STORE_PASSWORD = "javax.net.ssl.trustStorePassword";
     public static final String JAVA_TRUST_STORE_TYPE = "javax.net.ssl.trustStoreType";
 
+    /**
+     * Prevents instantiating this class.
+     */
+    private Constants() {
+    }
 }

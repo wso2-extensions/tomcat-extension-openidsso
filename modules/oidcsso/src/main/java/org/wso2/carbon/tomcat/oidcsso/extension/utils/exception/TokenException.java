@@ -17,12 +17,11 @@
 package org.wso2.carbon.tomcat.oidcsso.extension.utils.exception;
 
 /**
- * This class defines the exception type which is used in getting token response
+ * This class defines the exception type which is used in getting token response.
  */
 public class TokenException extends Exception {
 
     public TokenException(String message, Throwable cause) {
         super(message, cause);
     }
-
 }

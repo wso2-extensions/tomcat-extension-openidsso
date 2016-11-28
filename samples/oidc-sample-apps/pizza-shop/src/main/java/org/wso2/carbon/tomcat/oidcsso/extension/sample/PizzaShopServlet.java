@@ -1,3 +1,18 @@
+/*
+ *  Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package org.wso2.carbon.tomcat.oidcsso.extension.sample;
 
 import org.wso2.carbon.tomcat.oidcsso.extension.Constants;
@@ -10,9 +25,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
- * This is a sample java Servlet class to show the responses of OpenId Connect flow of the web app
+ * This is a sample java Servlet class to show the responses of OpenId Connect flow of the web app.
  */
 public class PizzaShopServlet extends HttpServlet {
     private static final long serialVersionUID = -8541360610239439894L;
@@ -20,25 +34,11 @@ public class PizzaShopServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-
         OIDCLoggedInSession object = (OIDCLoggedInSession) request.getSession(false)
                 .getAttribute(Constants.SESSION_BEAN);
-        String authenticationErrorResponse = (String) request.getSession(false)
-                .getAttribute(Constants.ERROR_AUTHENTICATION_RESPONSE);
-        String failedAuthenticationResponseValidation = (String) request.getSession(false)
-                .getAttribute(Constants.AUTHENTICATION_RESPONSE_VALIDATION_FAILED);
-        String failedTokenResponseValidation = (String) request.getSession(false)
-                .getAttribute(Constants.TOKEN_RESPONSE_VALIDATION_FAILED);
-        String tokenErrorResponse = (String) request.getSession(false).getAttribute(Constants.ERROR_TOKEN_RESPONSE);
-        String userInfoErrorResponse = (String) request.getSession(false)
-                .getAttribute(Constants.ERROR_USER_INFO_RESPONSE);
         String userInfoSuccessResponse = (String) request.getSession(false).getAttribute(Constants.USER_INFO_RESPONSE);
 
-
         PrintWriter out = response.getWriter();
-
-
         out.println("<HTML>");
         out.println("<HEAD>");
         out.println("<TITLE>pizza-shop</TITLE>");
@@ -56,34 +56,11 @@ public class PizzaShopServlet extends HttpServlet {
             out.print("<br />");
             out.print("ID Token Claim Set : " + object.getIdTokenClaimSet() + "<br />");
             out.print("<br />");
-
-        }
-        if (failedAuthenticationResponseValidation != null) {
-            out.print(failedAuthenticationResponseValidation + "<br />");
-        }
-        if (authenticationErrorResponse != null) {
-            out.print("Authentication Error Response. <br />");
-            out.print("<br />");
-            out.print("Error : " + authenticationErrorResponse);
-        }
-        if (failedTokenResponseValidation != null) {
-            out.print(failedTokenResponseValidation + "<br />");
-        }
-        if (tokenErrorResponse != null) {
-            out.print("Token Error Response. <br />");
-            out.print("<br />");
-            out.print("Error : " + tokenErrorResponse);
-        }
-        if (userInfoErrorResponse != null) {
-            out.print("User Info Error Response. <br />");
-            out.print("<br />");
-            out.print("Error : " + userInfoErrorResponse);
         }
         if (userInfoSuccessResponse != null) {
             out.print("User Info : " + userInfoSuccessResponse + "<br />");
             out.print("<br />");
         }
-
         out.print("</p>");
         out.print("<p>");
         out.print("<a href=\"http://localhost:8080/pizza-shop/logout\">Logout</a>\n");

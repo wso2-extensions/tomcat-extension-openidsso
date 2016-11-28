@@ -17,9 +17,8 @@
 package org.wso2.carbon.tomcat.oidcsso.extension.utils.exception;
 
 /**
- * This class defines the exception type which is used in processing authentication response
+ * This class defines the exception type which is used in processing authentication response.
  */
-
 public class AuthenticationResponseException extends Exception {
 
     public AuthenticationResponseException(String message) {

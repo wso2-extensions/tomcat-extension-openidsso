@@ -45,7 +45,7 @@ import org.wso2.carbon.tomcat.oidcsso.extension.TestConstants;
 import org.wso2.carbon.tomcat.oidcsso.extension.bean.AuthenticationResponse;
 import org.wso2.carbon.tomcat.oidcsso.extension.bean.RequestParameters;
 import org.wso2.carbon.tomcat.oidcsso.extension.bean.TokenResponse;
-import org.wso2.carbon.tomcat.oidcsso.extension.bean.UserInfoResponse;
+import org.wso2.carbon.tomcat.oidcsso.extension.bean.UserInformationResponse;
 import org.wso2.carbon.tomcat.oidcsso.extension.oidc.InMemoryStateStore;
 import org.wso2.carbon.tomcat.oidcsso.extension.oidc.StateStore;
 import org.wso2.carbon.tomcat.oidcsso.extension.utils.OIDCConfiguration;
@@ -220,7 +220,7 @@ public class OIDCAgentTest {
     }
 
     @Test(description = "test process token response with invalid content", expectedExceptions = TokenException.class,
-    priority = 11)
+            priority = 11)
     public void testProcessInvalidContentTokenResponse() throws IOException, TokenException, ParseException {
         OIDCAgent oidcAgent = new OIDCAgent();
         OIDCConfiguration oidcConfiguration = OIDCConfigurationLoader.getOIDCConfiguration(sample_context).get();
@@ -241,7 +241,7 @@ public class OIDCAgentTest {
         oidcAgent.processTokenResponse(request, oidcConfiguration);
     }
 
-    @Test(description = "test with invalid key store" , expectedExceptions = TokenException.class, priority = 13)
+    @Test(description = "test with invalid key store", expectedExceptions = TokenException.class, priority = 13)
     public void testInvalidKeyStore() throws CertificateException, java.text.ParseException, NoSuchAlgorithmException,
             IOException, JOSEException, KeyStoreException, UnrecoverableKeyException, InvalidKeyException,
             ParseException, TokenException {
@@ -260,8 +260,8 @@ public class OIDCAgentTest {
         OIDCAgent oidcAgent = new OIDCAgent();
         HTTPRequest request = mock(HTTPRequest.class);
         when(request.send()).thenReturn(prepareHttpSuccessfulUserInfoResponse());
-        UserInfoResponse userInfoResponse = oidcAgent.processUserInfoResponse(request);
-        Assert.assertTrue(userInfoResponse.getUserInfo().trim().equals(TestConstants.USER_INFO));
+        UserInformationResponse userInformationResponse = oidcAgent.processUserInfoResponse(request);
+        Assert.assertTrue(userInformationResponse.getUserInfo().trim().equals(TestConstants.USER_INFO));
     }
 
     @Test(description = "test user info error response", priority = 15)
@@ -269,8 +269,8 @@ public class OIDCAgentTest {
         OIDCAgent oidcAgent = new OIDCAgent();
         HTTPRequest request = mock(HTTPRequest.class);
         when(request.send()).thenReturn(prepareHttpErrorUserInfoResponse());
-        UserInfoResponse userInfoResponse = oidcAgent.processUserInfoResponse(request);
-        Assert.assertTrue(userInfoResponse.getUserInfo() == null);
+        UserInformationResponse userInformationResponse = oidcAgent.processUserInfoResponse(request);
+        Assert.assertTrue(userInformationResponse.getUserInfo() == null);
     }
 
     @Test(description = "test with invalid user info response", expectedExceptions = UserInfoException.class,
@@ -389,6 +389,7 @@ public class OIDCAgentTest {
         response.setContent(new JSONObject(contentMap).toJSONString());
         return response;
     }
+
     private static TokenResponse prepareTokenResponse(String idToken) {
         TokenResponse tokenResponse = new TokenResponse();
         tokenResponse.setAccessToken(TestConstants.ACCESS_TOKEN);
@@ -413,7 +414,7 @@ public class OIDCAgentTest {
         Date date = new Date();
         claimSet.issueTime(date);
         claimSet.expirationTime(new Date(date.getTime() + 3600000));
-        OIDCConfiguration.Truststore truststore = oidcConfiguration.getTruststore();
+        OIDCConfiguration.TrustStore truststore = oidcConfiguration.getTruststore();
         String filePath = (new File(TestConstants.KEYSTORE_PATH)).getAbsolutePath();
         InputStream file = new FileInputStream(filePath);
         KeyStore keyStore = KeyStore.getInstance(truststore.getType());

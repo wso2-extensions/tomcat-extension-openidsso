@@ -43,6 +43,7 @@ import com.nimbusds.openid.connect.sdk.LogoutRequest;
 import com.nimbusds.openid.connect.sdk.OIDCTokenResponse;
 import com.nimbusds.openid.connect.sdk.UserInfoErrorResponse;
 import com.nimbusds.openid.connect.sdk.UserInfoRequest;
+import com.nimbusds.openid.connect.sdk.UserInfoResponse;
 import com.nimbusds.openid.connect.sdk.UserInfoSuccessResponse;
 import com.nimbusds.openid.connect.sdk.claims.IDTokenClaimsSet;
 import com.nimbusds.openid.connect.sdk.validators.IDTokenValidator;
@@ -53,7 +54,7 @@ import org.wso2.carbon.tomcat.oidcsso.extension.Constants;
 import org.wso2.carbon.tomcat.oidcsso.extension.bean.AuthenticationResponse;
 import org.wso2.carbon.tomcat.oidcsso.extension.bean.RequestParameters;
 import org.wso2.carbon.tomcat.oidcsso.extension.bean.TokenResponse;
-import org.wso2.carbon.tomcat.oidcsso.extension.bean.UserInfoResponse;
+import org.wso2.carbon.tomcat.oidcsso.extension.bean.UserInformationResponse;
 import org.wso2.carbon.tomcat.oidcsso.extension.oidc.StateStore;
 import org.wso2.carbon.tomcat.oidcsso.extension.utils.OIDCConfiguration;
 import org.wso2.carbon.tomcat.oidcsso.extension.utils.exception.AuthenticationRequestException;
@@ -79,21 +80,22 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * This java class defines the API methods to complete OpenID Connect based SSO and SLO
+ * This class defines the API methods to complete OpenID Connect based SSO and SLO.
  */
 public class OIDCAgent {
 
     /**
-     * this method builds the OpenID Connect Authentication Request
+     * This method builds the OpenID Connect Authentication Request.
      *
-     * @param oidcConfiguration web application specific OIDC configuration
-     * @param requestParameters parameters which defined in the request to authenticate from user
-     * @param stateStore        storage of state values
-     * @return Authentication Request String
-     * @throws AuthenticationRequestException if any error occurs during building the request
+     * @param oidcConfiguration Configurations specific to web application.
+     * @param requestParameters Parameters defined in the request to be added to the authentication request by the user.
+     * @param stateStore        Storage of state values {@link StateStore}.
+     * @return Authentication Request String.
+     * @throws AuthenticationRequestException If any error occurs during building the request.
      */
     public String buildAuthenticationRequest(OIDCConfiguration oidcConfiguration, RequestParameters requestParameters,
                                              StateStore stateStore) throws AuthenticationRequestException {
+
         AuthenticationRequestBuilder authenticationRequest = new AuthenticationRequestBuilder();
         authenticationRequest.setAuthenticationEndpoint(oidcConfiguration.getAuthenticationEndpoint());
         authenticationRequest.setClientID(oidcConfiguration.getClientID());
@@ -106,26 +108,29 @@ public class OIDCAgent {
         if (requestParameters.getState() != null) {
             authenticationRequest.setState(requestParameters.getState());
         }
+
         if (requestParameters.getCustomParameters() != null) {
             authenticationRequest.setCustomParameters(requestParameters.getCustomParameters());
         }
+
         String authenticationRequestString;
         try {
             authenticationRequestString = authenticationRequest.build(stateStore);
         } catch (AuthenticationRequestException e) {
             throw new AuthenticationRequestException("Error occured while building the authentication response.", e);
         }
+
         return authenticationRequestString;
     }
 
     /**
-     * this method processes the Authentication Response received from the authentication endpoint of the
-     * Authorization Server
+     * This method processes the Authentication Response received from the authentication endpoint of the
+     * Authorization Server.
      *
-     * @param request    HttpServletRequest which is sent from the authentication endpoint
-     * @param stateStore storage for state values
-     * @return AuthenticationResponse object
-     * @throws AuthenticationResponseException if any error occur during the processing
+     * @param request    HttpServletRequest which is sent from the authentication endpoint.
+     * @param stateStore Storage for state values.
+     * @return The {@link AuthenticationResponse} object with received values.
+     * @throws AuthenticationResponseException If an error occurs during the process.
      */
     public AuthenticationResponse processAuthenticationResponse(HttpServletRequest request, StateStore stateStore)
             throws AuthenticationResponseException {
@@ -138,15 +143,18 @@ public class OIDCAgent {
         } catch (URISyntaxException e) {
             throw new AuthenticationResponseException("Received authentication response is not a valid URI.", e);
         }
+
         com.nimbusds.openid.connect.sdk.AuthenticationResponse authResp;
         try {
             authResp = AuthenticationResponseParser.parse(authenticationResponseURI);
         } catch (ParseException e) {
             throw new AuthenticationResponseException("Received authentication response is not valid.", e);
         }
+
         if (authResp instanceof AuthenticationErrorResponse) {
             return authenticationResponse;
         }
+
         AuthenticationSuccessResponse successResponse = (AuthenticationSuccessResponse) authResp;
         try {
             authenticationResponse = validateAuthenticationResponse(authenticationResponse, successResponse,
@@ -154,22 +162,23 @@ public class OIDCAgent {
         } catch (AuthenticationResponseException e) {
             throw new AuthenticationResponseException("Error occured while validating the authentication response.", e);
         }
+
         return authenticationResponse;
     }
 
     /**
-     * this method validates the Authentication Response using the state value in the request and response
+     * This method validates the Authentication Response using the state value in the request and response.
      *
-     * @param authenticationResponse bean object to set the values from authentication response if the validation is
-     *                               successful.
-     * @param successResponse        successful authentication response to be validated
-     * @param stateStore             storage of the state value used in the authentication request
-     * @return authentication response object
-     * @throws AuthenticationResponseException if the validation fails.
+     * @param authenticationResponse {@link AuthenticationResponse} to set the values from authentication response if
+     *                               the validation is successful.
+     * @param successResponse        {@link AuthenticationSuccessResponse} to be validated.
+     * @param stateStore             Storage of the state values used in the authentication request
+     * @return The {@link AuthenticationResponse} object with received values.
+     * @throws AuthenticationResponseException If an error occur during the validation.
      */
     private AuthenticationResponse validateAuthenticationResponse(AuthenticationResponse authenticationResponse,
-                                                          AuthenticationSuccessResponse successResponse,
-                                                          StateStore stateStore)
+                                                                  AuthenticationSuccessResponse successResponse,
+                                                                  StateStore stateStore)
             throws AuthenticationResponseException {
         if (stateStore.getStates().contains(successResponse.getState().toString())) {
             stateStore.getStates().remove(successResponse.getState().toString());
@@ -182,13 +191,13 @@ public class OIDCAgent {
     }
 
     /**
-     * this method generates Token Request, make a direct call to Token Endpoint in Authorization Server,
+     * This method generates Token Request, makes a direct call to Token Endpoint in Authorization Server,
      * receives the token response and process it.
      *
-     * @param oidcConfiguration web application specific OIDC configuration
-     * @param code              authorization code which is received in authentication response
-     * @return TokenResponse object
-     * @throws TokenException if any error occurs during getting the token response
+     * @param oidcConfiguration Configurations specific to web application.
+     * @param code              Authorization code which is received in authentication response.
+     * @return {@link TokenResponse} object with received token response values.
+     * @throws TokenException If an error occurs during getting the token response.
      */
     public TokenResponse getTokenResponse(OIDCConfiguration oidcConfiguration, String code) throws TokenException {
         AuthorizationCode authorizationCode = new AuthorizationCode(code);
@@ -204,13 +213,13 @@ public class OIDCAgent {
     }
 
     /**
-     * this is a default method which sends the thoken request and processes the received response which is called
-     * by the method getTokenResponse.
+     * This is a default method which sends the token request and processes the received response which is called
+     * by the {@code getTokenResponse}.
      *
-     * @param request           generated token request
-     * @param oidcConfiguration web application specific OIDC configuration
-     * @return Token Response object
-     * @throws TokenException if any errors occur during sending request and processing the response
+     * @param request           Generated token request.
+     * @param oidcConfiguration Configurations specific to web application.
+     * @return {@link TokenResponse} object with received token response values.
+     * @throws TokenException If an error occurs during sending request and processing the response.
      */
     TokenResponse processTokenResponse(HTTPRequest request, OIDCConfiguration oidcConfiguration) throws TokenException {
         TokenResponse tokenResponse = new TokenResponse();
@@ -220,27 +229,32 @@ public class OIDCAgent {
         } catch (IOException e) {
             throw new TokenException("Error occured while sending the token request", e);
         }
+
         JSONObject responseObject;
         try {
             responseObject = response.getContentAsJSONObject();
         } catch (ParseException e) {
             throw new TokenException("Received token response is not a valid JSON object.", e);
         }
+
         if ((responseObject.get(Constants.ERROR)) != null) {
             return tokenResponse;
         }
+
         OIDCTokenResponse oidcTokenResponse;
         try {
             oidcTokenResponse = OIDCTokenResponse.parse(response);
         } catch (ParseException e) {
             throw new TokenException("Error occured while parsing the received response to oidc token response.", e);
         }
+
         IDTokenClaimsSet claimsSet;
         try {
             claimsSet = validateIDToken(oidcConfiguration, oidcTokenResponse);
         } catch (TokenException e) {
             throw new TokenException("Error occurred while getting the id token claim set.", e);
         }
+
         tokenResponse.setAccessToken(oidcTokenResponse.getOIDCTokens().getAccessToken().toString());
         tokenResponse.setRefreshToken(oidcTokenResponse.getOIDCTokens().getRefreshToken().toString());
         tokenResponse.setIdToken(oidcTokenResponse.getOIDCTokens().getIDTokenString());
@@ -251,17 +265,17 @@ public class OIDCAgent {
     }
 
     /**
-     * this is a default method used to validate the token response using the id token claims and signature which is
-     * called by the method processTokenResponse.
+     * This is a default method used to validate the token response using the id token claims and signature which is
+     * called by {@code processTokenResponse}.
      *
-     * @param oidcConfiguration web application specific OIDC configuration.
-     * @param oidcTokenResponse the received token response.
-     * @return the id token claims if the validation is successful.
-     * @throws TokenException if any error occur during the validation.
+     * @param oidcConfiguration Configurations specific to web application.
+     * @param oidcTokenResponse The received {@link OIDCTokenResponse}.
+     * @return The {@link IDTokenClaimsSet} if the validation is successful.
+     * @throws TokenException If an error occurs during the validation.
      */
     private IDTokenClaimsSet validateIDToken(OIDCConfiguration oidcConfiguration, OIDCTokenResponse oidcTokenResponse)
             throws TokenException {
-        OIDCConfiguration.Truststore store = oidcConfiguration.getTruststore();
+        OIDCConfiguration.TrustStore store = oidcConfiguration.getTruststore();
         Issuer issuer = new Issuer(oidcConfiguration.getTokenEndpoint());
         ClientID clientID = new ClientID(oidcConfiguration.getClientID());
         JWSAlgorithm jwsAlg = JWSAlgorithm.RS256;
@@ -279,6 +293,7 @@ public class OIDCAgent {
         } catch (CertificateException | KeyStoreException | IOException | NoSuchAlgorithmException e) {
             throw new TokenException("Error occurred while obtaining the public key.", e);
         }
+
         Map<String, String> jwkMap = new HashMap<>();
         jwkMap.put(Constants.KEY_TYPE, publicKey.getAlgorithm());
         jwkMap.put(Constants.X509_CERTIFICATE_SHA_1_THUMBPRINT, Constants.X509_CERTIFICATE_SHA_1_THUMBPRINT_VALUE);
@@ -292,6 +307,7 @@ public class OIDCAgent {
         } catch (java.text.ParseException e) {
             throw new TokenException("Error occurred while generating the JKW.", e);
         }
+
         JWKSet jwkSet = new JWKSet(jwk);
         IDTokenValidator idTokenValidator = new IDTokenValidator(issuer, clientID, jwsAlg, jwkSet);
         IDTokenClaimsSet claimsSet;
@@ -300,19 +316,20 @@ public class OIDCAgent {
         } catch (BadJOSEException | JOSEException e) {
             throw new TokenException("Error occurred while validating the ID Token.", e);
         }
+
         return claimsSet;
     }
 
     /**
-     * this method generates User Info request, makes direct call to User Info endpoint at authorization server,
+     * This method generates User Info request, makes direct call to User Info endpoint at authorization server,
      * gets the user info response, processes it and return it.
      *
-     * @param oidcConfiguration web application specific OIDC configuration
-     * @param acsToken          a string value which is received in token response
-     * @return UserInfoResponse Object
-     * @throws UserInfoException if any error occurs during getting the user information
+     * @param oidcConfiguration Configurations specific to web application.
+     * @param acsToken          A string value of access token, received in token response.
+     * @return {@link UserInformationResponse} Object with received values.
+     * @throws UserInfoException If an error occurs during getting the user information.
      */
-    public UserInfoResponse getUserInfo(OIDCConfiguration oidcConfiguration, String acsToken)
+    public UserInformationResponse getUserInfo(OIDCConfiguration oidcConfiguration, String acsToken)
             throws UserInfoException {
         BearerAccessToken accessToken = new BearerAccessToken(acsToken);
         URI userInfoEndpoint = oidcConfiguration.getUserInfoEndpoint();
@@ -322,36 +339,38 @@ public class OIDCAgent {
     }
 
     /**
-     * this is a default method which sends the user info request and processes the received response which is called by
+     * This is a default method which sends the user info request and processes the received response which is called by
      * the method getUserInfo.
      *
-     * @param request generated user info request
-     * @return UserInfoResponse object
-     * @throws UserInfoException if any errors occur during getting the user info response
+     * @param request Generated user info request.
+     * @return {@link UserInformationResponse} Object with received values.
+     * @throws UserInfoException If an error occurs during getting the user information.
      */
-    UserInfoResponse processUserInfoResponse(HTTPRequest request) throws UserInfoException {
-        UserInfoResponse userInfoResponse = new UserInfoResponse();
-        com.nimbusds.openid.connect.sdk.UserInfoResponse response;
+    UserInformationResponse processUserInfoResponse(HTTPRequest request) throws UserInfoException {
+        UserInformationResponse userInformationResponse = new UserInformationResponse();
+        UserInfoResponse response;
         try {
             response = com.nimbusds.openid.connect.sdk.UserInfoResponse.parse(request.send());
         } catch (ParseException | IOException e) {
             throw new UserInfoException("Error occured while getting the user info response.", e);
         }
+
         if (response instanceof UserInfoErrorResponse) {
-            return userInfoResponse;
+            return userInformationResponse;
         }
+
         UserInfoSuccessResponse userInfoSuccessResponse = (UserInfoSuccessResponse) response;
-        userInfoResponse.setUserInfo(userInfoSuccessResponse.getUserInfo().toJSONObject().toJSONString());
-        return userInfoResponse;
+        userInformationResponse.setUserInfo(userInfoSuccessResponse.getUserInfo().toJSONObject().toJSONString());
+        return userInformationResponse;
     }
 
     /**
-     * generates the logout request and return it as a string
+     * Generates the logout request and return it as a string.
      *
-     * @param oidcConfiguration web application specific OIDC configuration
-     * @param idTokenString     received in the token response
-     * @return string value of logout request
-     * @throws LogoutException if any errors occur during the generation of logout request
+     * @param oidcConfiguration Configurations specific to web application.
+     * @param idTokenString     String value of id token, received in the token response.
+     * @return String value of generated logout request.
+     * @throws LogoutException If an error occurs during the generation of logout request.
      */
     public String buildLogoutRequest(OIDCConfiguration oidcConfiguration, String idTokenString)
             throws LogoutException {
@@ -361,6 +380,7 @@ public class OIDCAgent {
         } catch (java.text.ParseException e) {
             throw new LogoutException("Error occurred while parsing the id token to signed jwt.", e);
         }
+
         LogoutRequest logoutRequest = new LogoutRequest(oidcConfiguration.getLogoutEndpoint(), idToken);
         return logoutRequest.toURI().toString();
     }

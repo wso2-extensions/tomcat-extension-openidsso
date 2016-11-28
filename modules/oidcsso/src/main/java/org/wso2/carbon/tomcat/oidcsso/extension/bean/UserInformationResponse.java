@@ -17,9 +17,9 @@
 package org.wso2.carbon.tomcat.oidcsso.extension.bean;
 
 /**
- * A Java class which models a holder for the parameters UserInfo Response
+ * A class which models a holder for the parameters UserInfo Response.
  */
-public class UserInfoResponse {
+public class UserInformationResponse {
     private String userInfo;
 
     public String getUserInfo() {

@@ -22,6 +22,5 @@ limitations under the License.
             <class name="org.wso2.carbon.tomcat.oidcsso.extension.utils.OIDCConfigurationTest"/>
             <class name="org.wso2.carbon.tomcat.oidcsso.extension.agent.OIDCAgentTest"/>
         </classes>
-
     </test>
 </suite>

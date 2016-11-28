@@ -42,9 +42,8 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-
 /**
- * A Java class which loads WSO2 specific context level configurations for all contexts.
+ * A class which loads WSO2 specific context level configurations for all contexts.
  */
 public class OIDCConfigurationLoader implements LifecycleListener {
     private static OIDCConfiguration oidcConfiguration;
@@ -59,8 +58,8 @@ public class OIDCConfigurationLoader implements LifecycleListener {
     /**
      * Retrieves the {@code OIDCConfiguration} matching the specified context.
      *
-     * @param context the context for which the matching {@link OIDCConfiguration} is to be returned
-     * @return the {@code OIDCConfiguration} matching the specified context
+     * @param context The context for which the matching {@link OIDCConfiguration} is to be returned.
+     * @return The {@link OIDCConfiguration} matching the specified context.
      */
     public static Optional<OIDCConfiguration> getOIDCConfiguration(Context context) {
         oidcConfiguration = contextToConfigurationMap.get(context);
@@ -74,7 +73,7 @@ public class OIDCConfigurationLoader implements LifecycleListener {
      * For the purpose of generating the effective set of configurations, the global and context level webapp
      * descriptor files are read, if available.
      *
-     * @param lifecycleEvent the lifecycle event that has occurred
+     * @param lifecycleEvent The lifecycle event that has occurred.
      */
     @Override
     public void lifecycleEvent(LifecycleEvent lifecycleEvent) {
@@ -102,8 +101,8 @@ public class OIDCConfigurationLoader implements LifecycleListener {
      * configurations overridden at the context level (if any).
      * If no configurations are overridden at context level, the global configurations will prevail.
      *
-     * @param context the {@link Context} for which the final set of context level configurations are generated
-     * @return the final set of context level configurations for the specified {@link Context}
+     * @param context The {@link Context} for which the final set of context level configurations are generated.
+     * @return The final set of context level configurations for the specified {@link Context}.
      */
     private static OIDCConfiguration getEffectiveConfiguration(Context context)
             throws OIDCConfigurationRuntimeException {
@@ -113,7 +112,6 @@ public class OIDCConfigurationLoader implements LifecycleListener {
             Path defaultWebAppDescriptor = Paths.
                     get(PATH_APP_SERVER_CONFIG_BASE.toString(), Constants.WEBAPP_DESCRIPTOR);
             OIDCConfiguration effective;
-
             try {
                 Path localWebAppDescriptor = Paths.get(getWebAppPath(context).toString(),
                         Constants.WEB_CONTAINER_RESOURCE_FOLDER, Constants.WEBAPP_DESCRIPTOR);
@@ -121,6 +119,7 @@ public class OIDCConfigurationLoader implements LifecycleListener {
                     throw new OIDCConfigurationRuntimeException(
                             "The " + defaultWebAppDescriptor.toString() + " does not exist");
                 }
+
                 effective = getUnmarshalledObject(defaultWebAppDescriptor, schemaPath,
                         OIDCConfiguration.class);
                 if (Files.exists(localWebAppDescriptor)) {
@@ -131,6 +130,7 @@ public class OIDCConfigurationLoader implements LifecycleListener {
             } catch (OIDCConfigurationException e) {
                 throw new OIDCConfigurationRuntimeException("Error when loading the context level configuration", e);
             }
+
             oidcConfiguration = effective;
             Optional.ofNullable(oidcConfiguration).ifPresent(OIDCConfiguration::resolveVariables);
             setSecuritySystemProperties();
@@ -141,17 +141,17 @@ public class OIDCConfigurationLoader implements LifecycleListener {
     }
 
     /**
-     * Returns an absolute file path representation of the webapp context root specified.
+     * Returns an absolute file path representation of the web app context root specified.
      *
-     * @param context the webapp of which the context root is to be returned
-     * @return the absolute file path representation of the webapp context root specified
-     * @throws OIDCConfigurationException if an IOException occurs when retrieving the context root
+     * @param context The webapp of which the context root is to be returned.
+     * @return The absolute file path representation of the web app context root specified.
+     * @throws OIDCConfigurationException If an IOException occurs when retrieving the context root.
      */
     private static Path getWebAppPath(Context context) throws OIDCConfigurationException {
         String webappFilePath = "";
 
         //  Value of the following variable depends on various conditions. Sometimes you get just the webapp directory
-        //  name. Sometime you get absolute path the webapp directory or war file.
+        //  name. Sometime you get absolute path the web app directory or war file.
         try {
             if (context != null) {
                 String docBase = context.getDocBase();
@@ -173,7 +173,7 @@ public class OIDCConfigurationLoader implements LifecycleListener {
                 }
             }
         } catch (IOException e) {
-            throw new OIDCConfigurationException("Error while generating webapp file path", e);
+            throw new OIDCConfigurationException("Error while generating web app file path", e);
         }
         return Paths.get(webappFilePath);
     }
@@ -181,18 +181,16 @@ public class OIDCConfigurationLoader implements LifecycleListener {
     /**
      * Returns an XML unmarshaller for the defined Java classes.
      *
-     * @param schemaPath file path of the XML schema file against which the source XML is to be
-     *                   validated
-     * @param classes    the list of classes to be recognized by the {@link JAXBContext}
-     * @return an XML unmarshaller for the defined Java classes
-     * @throws OIDCConfigurationException if an error occurs when creating the XML unmarshaller
+     * @param schemaPath File path of the XML schema file against which the source XML is to be validated.
+     * @param classes    The list of classes to be recognized by the {@link JAXBContext}.
+     * @return An XML unmarshaller for the defined Java classes.
+     * @throws OIDCConfigurationException If an error occurs when creating the XML unmarshaller.
      */
     public static Unmarshaller getXMLUnmarshaller(Path schemaPath, Class... classes)
             throws OIDCConfigurationException {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(classes);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-
             if (Files.exists(schemaPath)) {
                 SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
                 Schema xmlSchema = schemaFactory.newSchema(schemaPath.toFile());
@@ -210,14 +208,14 @@ public class OIDCConfigurationLoader implements LifecycleListener {
     /**
      * Builds an XML binding from the XML source file specified.
      *
-     * @param source       the XML source file path representation
-     * @param schema       an optional file path representation of an XML schema file against which the source XML
-     *                     is to be validated
-     * @param bindingClass the class to be recognized by the {@link JAXBContext}
-     * @param <T>          the type of the class to be bound
-     * @return bound object (Type T) of XML
-     * @throws OIDCConfigurationException if an error occurred when creating the unmarshaller or
-     *                                    unmarshalling the XML source
+     * @param source       The XML source file path representation.
+     * @param schema       An optional file path representation of an XML schema file against which the source XML
+     *                     is to be validated.
+     * @param bindingClass The class to be recognized by the {@link JAXBContext}.
+     * @param <T>          The type of the class to be bound.
+     * @return Bound object (Type T) of XML.
+     * @throws OIDCConfigurationException If an error occurred when creating the unmarshaller or unmarshalling the
+     *                                    XML source.
      */
     public static <T> T getUnmarshalledObject(Path source, Path schema, Class<T> bindingClass)
             throws OIDCConfigurationException {
@@ -234,10 +232,8 @@ public class OIDCConfigurationLoader implements LifecycleListener {
      * Sets the system properties associated with Java SSL.
      */
     private static void setSecuritySystemProperties() {
-
         Optional.ofNullable(oidcConfiguration).ifPresent(configuration -> {
-            OIDCConfiguration.Truststore truststore = configuration.getTruststore();
-
+            OIDCConfiguration.TrustStore truststore = configuration.getTruststore();
             System.setProperty(Constants.JAVA_TRUST_STORE_LOCATION,
                     truststore.getLocation().replace("\\", "/"));
             System.setProperty(Constants.JAVA_TRUST_STORE_PASSWORD,

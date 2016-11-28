@@ -17,10 +17,9 @@
 package org.wso2.carbon.tomcat.oidcsso.extension.bean;
 
 /**
- * this class which models a holder for the required information about a logged in session
+ * A class which models a holder for the required information about a logged in session.
  */
 public class OIDCLoggedInSession {
-
     private String accessToken;
     private String refreshToken;
     private String idToken;

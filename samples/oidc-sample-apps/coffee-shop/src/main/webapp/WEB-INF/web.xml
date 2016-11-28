@@ -41,12 +41,10 @@
         <servlet-name>SSO</servlet-name>
         <url-pattern>/openid</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>welcome</servlet-name>
         <url-pattern>/</url-pattern>

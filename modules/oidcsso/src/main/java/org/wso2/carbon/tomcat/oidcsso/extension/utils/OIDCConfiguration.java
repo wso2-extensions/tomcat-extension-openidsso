@@ -26,38 +26,49 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A Java class which models a holder for web application specific OpenId Connect configurations.
+ * A class which models a holder for web application specific OpenId Connect configurations.
  */
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "oidc-config")
 public class OIDCConfiguration {
     @XmlElement(name = "enable")
     private Boolean enable;
+
     @XmlElement(name = "client-id")
     private String clientID;
+
     @XmlElement(name = "client-secret")
     private String clientSecret;
+
     @XmlElement(name = "redirect-uri")
     private URI redirectURI;
+
     @XmlElement(name = "scope")
     private String scope;
+
     @XmlElement(name = "claims")
     private String claims;
+
     @XmlElement(name = "response-type")
     private String responseType;
+
     @XmlElement(name = "grant-type")
     private String grantType;
+
     @XmlElement(name = "authentication-endpoint")
     private URI authenticationEndpoint;
+
     @XmlElement(name = "token-endpoint")
     private URI tokenEndpoint;
+
     @XmlElement(name = "user-info-endpoint")
     private URI userInfoEndpoint;
+
     @XmlElement(name = "logout-endpoint")
     private URI logoutEndpoint;
+
     @XmlElement(name = "trust-store")
-    private Truststore truststore;
+    private TrustStore truststore;
 
     public Boolean isEnabled() {
         return enable;
@@ -155,11 +166,11 @@ public class OIDCConfiguration {
         this.logoutEndpoint = logoutEndpoint;
     }
 
-    public Truststore getTruststore() {
+    public TrustStore getTruststore() {
         return truststore;
     }
 
-    public void setTruststore(Truststore truststore) {
+    public void setTruststore(TrustStore truststore) {
         this.truststore = truststore;
     }
 
@@ -167,13 +178,16 @@ public class OIDCConfiguration {
      * A nested class which defines the trust store configurations for Application Server.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    public static class Truststore {
+    public static class TrustStore {
         @XmlElement(name = "location")
         private String location;
+
         @XmlElement(name = "type")
         private String type;
+
         @XmlElement(name = "key-alias")
         private String keyAlias;
+
         @XmlElement(name = "password")
         private String password;
 
@@ -208,14 +222,13 @@ public class OIDCConfiguration {
         public void setPassword(String password) {
             this.password = password;
         }
-
     }
 
     /**
      * Merges the globally defined context level configurations and context level configurations overridden at
      * context level.
      *
-     * @param configurations group of context level configuration capable of being merged with this group
+     * @param configurations Group of context level configuration capable of being merged with this group.
      */
     void merge(OIDCConfiguration configurations) {
         Optional.ofNullable(configurations)
@@ -234,9 +247,7 @@ public class OIDCConfiguration {
                     userInfoEndpoint = Optional.ofNullable(configs.userInfoEndpoint).orElse(userInfoEndpoint);
                     logoutEndpoint = Optional.ofNullable(configs.logoutEndpoint).orElse(logoutEndpoint);
                     truststore = Optional.ofNullable(configs.truststore).orElse(truststore);
-
                 });
-
     }
 
     /**
@@ -263,7 +274,3 @@ public class OIDCConfiguration {
                 StrSubstitutor.replaceSystemProperties(truststore.getLocation()));
     }
 }
-
-
-
-

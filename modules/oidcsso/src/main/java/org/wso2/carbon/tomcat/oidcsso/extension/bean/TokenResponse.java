@@ -17,7 +17,7 @@
 package org.wso2.carbon.tomcat.oidcsso.extension.bean;
 
 /**
- * A Java class which models a holder for the parameters of Token Response
+ * A class which models a holder for the parameters of Token Response.
  */
 public class TokenResponse {
     private String accessToken;

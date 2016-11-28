@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A Java class which defines the parameters required to generate an OpenID Connect authentication request.
+ * A class which defines the parameters required to generate an OpenID Connect authentication request.
  */
 final class AuthenticationRequestBuilder {
     private URI authenticationEndpoint;
@@ -78,10 +78,10 @@ final class AuthenticationRequestBuilder {
 
     /**
      * This nested class builds the Authentication Request Using "Nimbus OAuth 2.0 SDK with OpenID Connect extensions"
-     * library
+     * library.
      *
-     * @param stateStore storage for state values which is used to validate the authentication response
-     * @return Authentication Request String
+     * @param stateStore Storage for state values, used to validate the authentication response.
+     * @return The generated authentication request string.
      */
     String build(StateStore stateStore) throws AuthenticationRequestException {
         List<String> scopeList = Arrays.asList(scope.split("\\s*,\\s*"));
@@ -94,26 +94,30 @@ final class AuthenticationRequestBuilder {
         } else {
             state1 = new State(state);
         }
+
         stateStore.storeState(String.valueOf(state1));
         AuthenticationRequest.Builder authenticationRequest;
         try {
             authenticationRequest = new AuthenticationRequest.Builder(responseType1, scope1, clientID1, redirectURI);
         } catch (IllegalArgumentException e) {
-            throw new
-                    AuthenticationRequestException("Error occurred while creating a authentication request builder", e);
+            throw new AuthenticationRequestException("Error occurred while creating an " +
+                    "authentication request builder", e);
         }
+
         ClaimsRequest claimsRequest = new ClaimsRequest();
         if (!claims.isEmpty()) {
             List<String> claimsList = Arrays.asList(claims.split("\\s*,\\s*"));
             claimsList.forEach(claimsRequest::addUserInfoClaim);
             authenticationRequest.claims(claimsRequest);
         }
+
         authenticationRequest.endpointURI(authenticationEndpoint);
         authenticationRequest.state(state1);
         if (customParameters != null) {
             customParameters.forEach((key, value) -> authenticationRequest
                     .customParameter(String.valueOf(key), String.valueOf(value)));
         }
+
         AuthenticationRequest authRequest = authenticationRequest.build();
         return authRequest.toURI().toString();
     }

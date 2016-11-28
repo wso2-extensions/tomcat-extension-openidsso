@@ -17,11 +17,9 @@
 package org.wso2.carbon.tomcat.oidcsso.extension.utils.exception;
 
 /**
- *
+ * This class defines a custom unchecked exception type specific to oidc tomcat extension.
  */
 public class OIDCConfigurationRuntimeException extends RuntimeException {
-
-    private static final long serialVersionUID = -8004095742991188862L;
 
     public OIDCConfigurationRuntimeException(String message) {
         super(message);
@@ -31,4 +29,3 @@ public class OIDCConfigurationRuntimeException extends RuntimeException {
         super(message, cause);
     }
 }
-

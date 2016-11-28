@@ -17,7 +17,7 @@
 package org.wso2.carbon.tomcat.oidcsso.extension.utils.exception;
 
 /**
- *
+ * This class defines the exception type which is used in generating logout request.
  */
 public class LogoutException extends Exception {
 

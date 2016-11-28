@@ -16,8 +16,6 @@
 
 /**
  * Package information for context configuration namespace.
- *
- * @since 6.0.0
  */
 
 @XmlSchema(

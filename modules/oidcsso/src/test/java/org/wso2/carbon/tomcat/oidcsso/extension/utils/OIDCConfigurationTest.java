@@ -101,7 +101,7 @@ public class OIDCConfigurationTest {
     }
 
     @Test(description = "Attempts to load the XML file content with a non-existent XML schema file for validation",
-            expectedExceptions = { OIDCConfigurationException.class }, priority = 5)
+            expectedExceptions = {OIDCConfigurationException.class}, priority = 5)
     public void testLoadingObjectFromNonExistentSchemaAsPath()
             throws IOException, OIDCConfigurationException {
         OIDCConfigurationLoader oidcConfigurationLoader = new OIDCConfigurationLoader();
@@ -111,7 +111,7 @@ public class OIDCConfigurationTest {
     }
 
     @Test(description = "Uses an invalid XML schema file for validation",
-            expectedExceptions = { OIDCConfigurationException.class }, priority = 6)
+            expectedExceptions = {OIDCConfigurationException.class}, priority = 6)
     public void testLoadingObjectWithInvalidSchema() throws IOException, OIDCConfigurationException {
         OIDCConfigurationLoader oidcConfigurationLoader = new OIDCConfigurationLoader();
         Path xmlSchema = Paths.get(TestConstants.TEST_RESOURCES, TestConstants.INVALID_SCHEMA_FILE);
@@ -119,13 +119,14 @@ public class OIDCConfigurationTest {
     }
 
     @Test(description = "Attempts to load content from a file source with invalid XML syntax",
-            expectedExceptions = { OIDCConfigurationException.class }, priority = 7)
+            expectedExceptions = {OIDCConfigurationException.class}, priority = 7)
     public void testLoadingObjectFromInvalidFile() throws IOException, OIDCConfigurationException {
         OIDCConfigurationLoader oidcConfigurationLoader = new OIDCConfigurationLoader();
         Path xmlSource = Paths.get(TestConstants.TEST_RESOURCES, TestConstants.INVALID_DESCRIPTOR);
         Path xmlSchema = Paths.get(TestConstants.TEST_RESOURCES, Constants.WEBAPP_DESCRIPTOR_SCHEMA);
         oidcConfigurationLoader.getUnmarshalledObject(xmlSource, xmlSchema, OIDCConfiguration.class);
     }
+
     private static void prepareCatalinaComponents() {
         host.setAppBase(TestConstants.WEB_APP_BASE);
         sample_context.setParent(host);
@@ -152,7 +153,7 @@ public class OIDCConfigurationTest {
         oidcConfiguration.setUserInfoEndpoint(URI.create(TestConstants.USER_INFO_ENDPOINT));
         oidcConfiguration.setLogoutEndpoint(URI.create(TestConstants.LOGOUT_ENDPOINT));
 
-        OIDCConfiguration.Truststore truststore = new OIDCConfiguration.Truststore();
+        OIDCConfiguration.TrustStore truststore = new OIDCConfiguration.TrustStore();
         truststore.setLocation(TestConstants.TRUSTSTORE_PATH);
         truststore.setType(TestConstants.TYPE);
         truststore.setPassword(TestConstants.TRUSTSTORE_PASSWORD);
@@ -181,7 +182,6 @@ public class OIDCConfigurationTest {
             boolean logoutEndpoint = actual.getLogoutEndpoint().equals(expected.getLogoutEndpoint());
             boolean security = comparetrustStoreConfigurations(actual.getTruststore(),
                     expected.getTruststore());
-
             return (enable && clientID && clientSecret && redirectURI && scope && claims && responseType && grantType
                     && authenticationEndpoint && tokenEndpoint && userInfoEndpoint && logoutEndpoint && security);
         } else {
@@ -189,18 +189,15 @@ public class OIDCConfigurationTest {
         }
     }
 
-    private static boolean comparetrustStoreConfigurations(OIDCConfiguration.Truststore actual,
-                                                           OIDCConfiguration.Truststore expected) {
+    private static boolean comparetrustStoreConfigurations(OIDCConfiguration.TrustStore actual,
+                                                           OIDCConfiguration.TrustStore expected) {
         if ((actual != null) && (expected != null)) {
-            boolean truststorePath = actual.getLocation().trim().
-                    equals(expected.getLocation());
-            boolean truststorePassword = actual.getPassword().trim().
-                    equals(expected.getPassword());
+            boolean truststorePath = actual.getLocation().trim().equals(expected.getLocation());
+            boolean truststorePassword = actual.getPassword().trim().equals(expected.getPassword());
             boolean truststoreType = actual.getType().trim().equals(expected.getType());
             return (truststorePath && truststorePassword && truststoreType);
         } else {
             return (actual == null) && (expected == null);
         }
     }
-
 }

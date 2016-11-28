@@ -34,7 +34,7 @@ public class TestConstants {
     public static final String NON_EXISTENT_SCHEMA = "non-existent-sample-wso2as.xsd";
     public static final String INVALID_SCHEMA_FILE = "faulty-xml-schema.xsd";
     public static final String INVALID_DESCRIPTOR = "faulty-xml.xml";
-    // test constants for oidc configuration
+    // test constants for oidc configuration.
     public static final String CLIENT_ID = "abdefghijklm_123415";
     public static final String CLIENT_SECRET = "6789nopqrstuvwxyz";
     public static final String REDIRECT_URI = "http://localhost:8080/foo-app/openid";
@@ -46,14 +46,14 @@ public class TestConstants {
     public static final String TOKEN_ENDPOINT = "https://localhost:9443/oauth2/token";
     public static final String USER_INFO_ENDPOINT = "https://localhost:9443/oauth2/userinfo?schema=openid";
     public static final String LOGOUT_ENDPOINT = "https://localhost:9443/oidc/logout";
-    //  test constants for server level security configurations
+    //  test constants for server level security configurations.
     public static final String TYPE = "JKS";
     public static final String PRIVATE_KEY_ALIAS = "wso2carbon";
     public static final String TRUSTSTORE_PATH = "${catalina.base}/conf/wso2/client-truststore.jks";
     public static final String TRUSTSTORE_PASSWORD = "wso2carbon";
     public static final String KEYSTORE_PATH =
             "src/test/resources/testResources/oidcExtension/conf/wso2/wso2carbon.jks";
-    // Authentication Response Constants
+    // Authentication Response Constants.
     public static final String CODE = "8e0e20bb-4e33-3ea6-b931-66eb5a73d9d3";
     public static final String STATE = "hello";
     public static final String REQUEST_SCOPE = "openid,email";
@@ -73,11 +73,11 @@ public class TestConstants {
     public static final String INVALID_AUTHENTICATION_RESPONSE_QUERY = "state=" + STATE + "&session_state=" +
             SESSION_STATE;
     public static final String AUTHENTICATION_ERROR_RESPONSE_QUERY = "error=" + ERROR + "&state=" + STATE;
-    //Http token response constants
+    //Http token response constants.
     public static final String CACHE_CONTROL = "no-store";
     public static final String CONTENT_TYPE = "application/json";
     public static final String PRAGMA = "no-cache";
-    //token request test constants
+    //token request test constants.
     public static final String ACCESS_TOKEN = "SlAV32hkKG";
     public static final String REFRESH_TOKEN = "8xLOxBtZp8";
     public static final String TOKEN_TYPE = "Bearer";
@@ -94,7 +94,7 @@ public class TestConstants {
             "_6hKaOZ7KoRHWtyAaLha9z7hG6VqAvPDbKEX1-Mh866X_Ct7iithuSarkCQN4QHmBkHODczLg4MNPC0FTrjhmeTA9AbGjzNjuBbFdka9" +
             "gR4AqCpNb_JOWD8iHRAGSzMCHdrb8j8oLqRGD7NwkGlQfdPvxKb5ZITscdA";
     public static final String USER_INFO = "{\"sub\":\"248289761001\",\"name\":\"Jane Doe\",\"given_name\":\"Jane\"}";
-    //logout request constants
+    //logout request constants.
     public static final String LOGOUT_REQUEST = "https://localhost:9443/oidc/logout?id_token_hint=" + ID_TOKEN;
 
     /**

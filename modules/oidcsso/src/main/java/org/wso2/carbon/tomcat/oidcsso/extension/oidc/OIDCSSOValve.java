@@ -29,7 +29,7 @@ import org.wso2.carbon.tomcat.oidcsso.extension.bean.AuthenticationResponse;
 import org.wso2.carbon.tomcat.oidcsso.extension.bean.OIDCLoggedInSession;
 import org.wso2.carbon.tomcat.oidcsso.extension.bean.RequestParameters;
 import org.wso2.carbon.tomcat.oidcsso.extension.bean.TokenResponse;
-import org.wso2.carbon.tomcat.oidcsso.extension.bean.UserInfoResponse;
+import org.wso2.carbon.tomcat.oidcsso.extension.bean.UserInformationResponse;
 import org.wso2.carbon.tomcat.oidcsso.extension.utils.OIDCConfiguration;
 import org.wso2.carbon.tomcat.oidcsso.extension.utils.OIDCConfigurationLoader;
 import org.wso2.carbon.tomcat.oidcsso.extension.utils.exception.AuthenticationRequestException;
@@ -69,12 +69,14 @@ public class OIDCSSOValve extends SingleSignOn {
             getNext().invoke(request, response);
             return;
         }
+
         if (!oidcContextConfiguration.isEnabled()) {
             getNext().invoke(request, response);
             return;
         }
-//        checks whether the request is a initial request to start the oidc flow by sending authentication request
-//        to openid provider
+
+        //Checks whether the request is a initial request to start the oidc flow by sending authentication request
+        //to openid provider.
         if ((request.getRequestURI().endsWith(Constants.SIGN_IN)) && ((request.getSession(false) == null)
                 || (request.getSession(false).getAttribute(Constants.SESSION_BEAN) == null))) {
             String authenticationRequest = null;
@@ -84,11 +86,13 @@ public class OIDCSSOValve extends SingleSignOn {
                 log.error("Error occurred while building the authentication request.", e);
                 getNext().invoke(request, response);
             }
+
             request.getSession(true);
             response.sendRedirect(authenticationRequest);
             return;
         }
-//        checks whether the request is sent by the RP iFrame to send re-authentication request
+
+        //Checks whether the request is sent by the RP iFrame to send re-authentication request.
         if (request.getRequestURI().endsWith(Constants.RE_AUTHENTICATE)) {
             String reAuthenticationRequest = null;
             try {
@@ -100,13 +104,15 @@ public class OIDCSSOValve extends SingleSignOn {
             response.sendRedirect(reAuthenticationRequest);
             return;
         }
-//        checks whether the request is an authentication response from the openid provider
+
+        //Checks whether the request is an authentication response from the openid provider.
         if (request.getRequestURI().endsWith(Constants.OPENID)) {
-//            checks whether the response is for the re-authentication request.
+            //Checks whether the response is for the re-authentication request.
             if (request.getSession(false).getAttribute(Constants.SESSION_BEAN) != null) {
                 handleReAuthenticationResponse(request, response, oidcContextConfiguration);
                 return;
             }
+
             OIDCLoggedInSession loggedInSession = new OIDCLoggedInSession();
             AuthenticationResponse authenticationResponse = new AuthenticationResponse();
             try {
@@ -115,10 +121,12 @@ public class OIDCSSOValve extends SingleSignOn {
                 log.error("Error occurred while processing the authentication response.", e);
                 getNext().invoke(request, response);
             }
+
             if (authenticationResponse.getCode() == null) {
                 getNext().invoke(request, response);
                 return;
             }
+
             request.getSession(false).setAttribute(Constants.SESSION_STATE, authenticationResponse
                     .getSessionState());
             request.getSession(false).setAttribute(Constants.CLIENT_ID, oidcContextConfiguration.getClientID());
@@ -131,33 +139,38 @@ public class OIDCSSOValve extends SingleSignOn {
                 log.error("Error occurred while receiving the token response.", e);
                 getNext().invoke(request, response);
             }
+
             if (tokenResponse.getAccessToken() == null) {
                 getNext().invoke(request, response);
                 return;
             }
+
             loggedInSession.setAccessToken(tokenResponse.getAccessToken());
             loggedInSession.setRefreshToken(tokenResponse.getRefreshToken());
             loggedInSession.setIdToken(tokenResponse.getIdToken());
             loggedInSession.setIdTokenClaimSet(tokenResponse.getIdTokenClaimSet());
             request.getSession(false).setAttribute(Constants.SESSION_BEAN, loggedInSession);
 
-            UserInfoResponse userInfoResponse = new UserInfoResponse();
+            UserInformationResponse userInformationResponse = new UserInformationResponse();
             try {
-                userInfoResponse = handleUserInfoResponse(oidcContextConfiguration,
+                userInformationResponse = handleUserInfoResponse(oidcContextConfiguration,
                         tokenResponse.getAccessToken());
             } catch (UserInfoException e) {
                 log.error("Error occurred while receiving the user info response.", e);
                 getNext().invoke(request, response);
             }
-            if (userInfoResponse.getUserInfo() == null) {
+
+            if (userInformationResponse.getUserInfo() == null) {
                 getNext().invoke(request, response);
                 return;
             }
-            request.getSession(false).setAttribute(Constants.USER_INFO_RESPONSE, userInfoResponse.getUserInfo());
+
+            request.getSession(false).setAttribute(Constants.USER_INFO_RESPONSE, userInformationResponse.getUserInfo());
             getNext().invoke(request, response);
             return;
         }
-//        checks whether the request is to send logout request
+
+        //Checks whether the request is to send logout request.
         if ((request.getRequestURI().endsWith(Constants.LOGOUT)) && (request.getSession(false) != null)) {
             String logoutRequest = null;
             try {
@@ -166,19 +179,22 @@ public class OIDCSSOValve extends SingleSignOn {
                 log.error("Error occurred while building the logout request.", e);
                 getNext().invoke(request, response);
             }
+
             request.getSession(false).invalidate();
             response.sendRedirect(logoutRequest);
             return;
         }
+
         getNext().invoke(request, response);
     }
 
     /**
-     * this is a protected method which handles the initial request to prepare authentication request
-     * @param request received httpServletRequest
-     * @param oidcContextConfiguration webapp specific configuration
-     * @return authentication request string
-     * @throws AuthenticationRequestException if any error occurs during building the authentication request string
+     * This is a protected method which handles the initial request to prepare authentication request.
+     *
+     * @param request                  Received {@link Request}.
+     * @param oidcContextConfiguration Configurations specific to web application.
+     * @return String value of authentication request.
+     * @throws AuthenticationRequestException If an error occurs during building the authentication request string.
      */
     protected String handleUnAuthenticatedRequest(Request request, OIDCConfiguration oidcContextConfiguration)
             throws AuthenticationRequestException {
@@ -186,16 +202,20 @@ public class OIDCSSOValve extends SingleSignOn {
         if (request.getAttribute(Constants.SCOPE) != null) {
             requestParameters.setScope(String.valueOf(request.getAttribute(Constants.SCOPE)));
         }
+
         if (request.getAttribute(Constants.CLAIMS) != null) {
             requestParameters.setClaims(String.valueOf(request.getAttribute(Constants.CLAIMS)));
         }
+
         if (request.getAttribute(Constants.STATE) != null) {
             requestParameters.setClaims(String.valueOf(request.getAttribute(Constants.STATE)));
         }
+
         if (request.getAttribute(Constants.CUSTOM_PARAMETERS) != null) {
             requestParameters.setCustomParameters((Map<String, String>) request
                     .getAttribute(Constants.CUSTOM_PARAMETERS));
         }
+
         String authenticationRequestURI;
         authenticationRequestURI = oidcAgent.buildAuthenticationRequest(oidcContextConfiguration,
                 requestParameters, stateStore);
@@ -203,10 +223,11 @@ public class OIDCSSOValve extends SingleSignOn {
     }
 
     /**
-     * this is a protected method which handles the request to prepare re-authentication request
-     * @param oidcContextConfiguration webapp specific configuration
-     * @return re-authentication request string
-     * @throws AuthenticationRequestException if any error occurs during building the re-authentication request string
+     * This is a protected method which handles the request to prepare re-authentication request.
+     *
+     * @param oidcContextConfiguration Configurations specific to web application.
+     * @return String value of re-authentication request.
+     * @throws AuthenticationRequestException If an error occurs during building the re-authentication request string.
      */
     protected String handleReAuthenticationRequest(OIDCConfiguration oidcContextConfiguration)
             throws AuthenticationRequestException {
@@ -221,12 +242,13 @@ public class OIDCSSOValve extends SingleSignOn {
     }
 
     /**
-     * this is a protected method which handles the re-authentication response.
-     * @param request received http servlet request
-     * @param response http servlet response
-     * @param oidcContextConfiguration webapp specific configuration
-     * @throws IOException if any error occurs during invoking the next valve
-     * @throws ServletException if any error occurs during invoking the next valve or redirection
+     * This is a protected method which handles the re-authentication response.
+     *
+     * @param request                  Received {@link Request}.
+     * @param response                 Desired {@link Response}.
+     * @param oidcContextConfiguration Configurations specific to web application.
+     * @throws IOException      If an error occurs during invoking the next valve.
+     * @throws ServletException If an error occurs during invoking the next valve or redirection.
      */
     protected void handleReAuthenticationResponse(Request request, Response response,
                                                   OIDCConfiguration oidcContextConfiguration)
@@ -260,10 +282,11 @@ public class OIDCSSOValve extends SingleSignOn {
     }
 
     /**
-     * this is a protected method which handles the authentication response.
-     * @param request received http servlet request
-     * @return authentication response object
-     * @throws AuthenticationResponseException if any error occurs during processing the response
+     * This is a protected method which handles the authentication response.
+     *
+     * @param request Received {@link Request}.
+     * @return {@link AuthenticationResponse} object with values.
+     * @throws AuthenticationResponseException If an error occurs during processing the response.
      */
     protected AuthenticationResponse handleAuthenticationResponse(Request request)
             throws AuthenticationResponseException {
@@ -273,11 +296,12 @@ public class OIDCSSOValve extends SingleSignOn {
     }
 
     /**
-     * this is a protected method which handles the token request and response.
-     * @param oidcContextConfiguration webapp specific configuration
-     * @param code authorization code received in the authentication response
-     * @return the token response object
-     * @throws TokenException if any error occurs during the process
+     * This is a protected method which handles the token request and response.
+     *
+     * @param oidcContextConfiguration Configurations specific to web application.
+     * @param code                     Authorization code received in the authentication response.
+     * @return The {@link TokenResponse} object.
+     * @throws TokenException If an error occurs during the process.
      */
     protected TokenResponse handleTokenResponse(OIDCConfiguration oidcContextConfiguration, String code)
             throws TokenException {
@@ -287,25 +311,27 @@ public class OIDCSSOValve extends SingleSignOn {
     }
 
     /**
-     * this is a protected method which handles the user-info request and response.
-     * @param oidcContextConfiguration webapp specific configuration
-     * @param accessToken received value in the token response
-     * @return the user info response object
-     * @throws UserInfoException if any error occurs during the process
+     * This is a protected method which handles the user-info request and response.
+     *
+     * @param oidcContextConfiguration Configurations specific to web application.
+     * @param accessToken              Received access token value in the token response.
+     * @return The {@link UserInformationResponse} object.
+     * @throws UserInfoException If any error occurs during the process.
      */
-    protected UserInfoResponse handleUserInfoResponse(OIDCConfiguration oidcContextConfiguration, String accessToken)
-            throws UserInfoException {
-        UserInfoResponse userInfoResponse;
+    protected UserInformationResponse handleUserInfoResponse(OIDCConfiguration oidcContextConfiguration,
+                                                             String accessToken) throws UserInfoException {
+        UserInformationResponse userInfoResponse;
         userInfoResponse = oidcAgent.getUserInfo(oidcContextConfiguration, accessToken);
         return userInfoResponse;
     }
 
     /**
-     * this is a protected method which handles the logout request.
-     * @param request received http servlet request
-     * @param oidcContextConfiguration webapp specific configuration
-     * @return the log out request string
-     * @throws LogoutException if any error occurs during the process
+     * This is a protected method which handles the logout request.
+     *
+     * @param request                  Received {@link Request}.
+     * @param oidcContextConfiguration Configurations specific to web application.
+     * @return The string value of logout request.
+     * @throws LogoutException If an error occurs during the process.
      */
     protected String handleLogoutRequest(Request request, OIDCConfiguration oidcContextConfiguration)
             throws LogoutException {
@@ -316,4 +342,3 @@ public class OIDCSSOValve extends SingleSignOn {
         return logoutRequest;
     }
 }
-
