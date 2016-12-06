@@ -22,6 +22,18 @@ import java.util.List;
  * This interface defines the storage of state values in the authentication request of OpenID Connect.
  */
 public interface StateStore {
+
+    /**
+     * Inserts the state value to the defined storage.
+     *
+     * @param stateValue String value of the state to be stored.
+     */
     void storeState(String stateValue);
+
+    /**
+     * Returns the list of stored state values.
+     *
+     * @return the list of state values.
+     */
     List<String> getStates();
 }
