@@ -36,7 +36,7 @@ public class PizzaShopServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        OIDCLoggedInSession object = (OIDCLoggedInSession) request.getSession(false)
+        OIDCLoggedInSession oidcLoggedInSessionAttributes = (OIDCLoggedInSession) request.getSession(false)
                 .getAttribute(Constants.SESSION_BEAN);
         String userInfoSuccessResponse = (String) request.getSession(false).getAttribute(Constants.USER_INFO_RESPONSE);
 
@@ -47,16 +47,16 @@ public class PizzaShopServlet extends HttpServlet {
         out.println("</HEAD>");
         out.println("<BODY>");
         out.print("<p>");
-        if (object != null) {
+        if (oidcLoggedInSessionAttributes != null) {
             out.println("successfully logged in <br />");
             out.print("<br />");
-            out.println("Access Token : " + object.getAccessToken() + "<br />");
+            out.println("Access Token : " + oidcLoggedInSessionAttributes.getAccessToken() + "<br />");
             out.print("<br />");
-            out.print("Refresh Token : " + object.getRefreshToken() + "<br />");
+            out.print("Refresh Token : " + oidcLoggedInSessionAttributes.getRefreshToken() + "<br />");
             out.print("<br />");
-            out.print("ID Token : " + object.getIdToken() + "<br />");
+            out.print("ID Token : " + oidcLoggedInSessionAttributes.getIdToken() + "<br />");
             out.print("<br />");
-            out.print("ID Token Claim Set : " + object.getIdTokenClaimSet() + "<br />");
+            out.print("ID Token Claim Set : " + oidcLoggedInSessionAttributes.getIdTokenClaimSet() + "<br />");
             out.print("<br />");
         }
         if (userInfoSuccessResponse != null) {
