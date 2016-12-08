@@ -82,7 +82,7 @@ Checkout the project using the below command
 5. Add the following under the Context tag:
 `<Listener className="org.wso2.carbon.tomcat.oidcsso.extension.utils.OIDCConfigurationLoader"/>`
 6. Copy the &lt;project_root&gt;/modules/oidcsso/src/main/resources/wso2 folder to &lt;Tomcat_HOME&gt;/conf
-7. copy the &lt;project_root&gt;/modules/oidcsso/target/oidcsso-1.0.1-SNAPSHOT-fat.jar to <Tomcat_HOME>/lib
+7. copy the &lt;project_root&gt;/modules/oidcsso/target/oidcsso-1.0.0-SNAPSHOT-fat.jar to <Tomcat_HOME>/lib
 8. Copy the &lt;project_root&gt;/samples/oidc-sample-apps/coffee-shop/target/coffee-shop.war and &lt;project_root&gt;/samples/oidc-sample-apps/pizza-shop/target/pizza-shop.war to &lt;Tomcat_HOME&gt;/webapps folder.
 
 ## Step 6: Try out the samples ##
