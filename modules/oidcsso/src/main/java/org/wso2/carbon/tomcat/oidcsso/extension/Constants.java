@@ -22,11 +22,6 @@ package org.wso2.carbon.tomcat.oidcsso.extension;
  */
 public class Constants {
     public static final String OPENID = "openid";
-    public static final String ERROR_AUTHENTICATION_RESPONSE = "Error Authentication Response";
-    public static final String AUTHENTICATION_RESPONSE_VALIDATION_FAILED = "Authentication Response Validation Failed";
-    public static final String TOKEN_RESPONSE_VALIDATION_FAILED = "Token Response Validation Failed";
-    public static final String ERROR_TOKEN_RESPONSE = "Error Token Response";
-    public static final String ERROR_USER_INFO_RESPONSE = "UserInfo Error Response";
     public static final String USER_INFO_RESPONSE = "UserInfo response";
     public static final String SESSION_BEAN = "org.wso2.appserver.webapp.security.oidc.bean.OIDCLoggedInSession";
     public static final String LOGOUT = "logout";
