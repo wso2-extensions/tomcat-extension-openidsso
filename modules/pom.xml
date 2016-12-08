@@ -29,7 +29,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>modules</artifactId>
     <packaging>pom</packaging>
-    <name>Tomcat - Extension</name>
+    <name>Tomcat - Extension - Modules</name>
     <description>Web application security functions</description>
     <url>http://wso2.com</url>
 

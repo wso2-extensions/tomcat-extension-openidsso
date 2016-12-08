@@ -28,7 +28,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>oidcsso</artifactId>
-    <name>Tomcat - Extension - OIDCSSO</name>
+    <name>Tomcat - Extension - Module - OIDCSSO</name>
     <description>Web application security functions</description>
     <url>http://wso2.com</url>
 

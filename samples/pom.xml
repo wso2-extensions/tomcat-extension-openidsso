@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>samples</artifactId>
     <packaging>pom</packaging>
-    <name>Tomcat - Extension</name>
+    <name>Tomcat - Extension - Samples</name>
     <description>Web application security functions</description>
     <url>http://wso2.com</url>
 

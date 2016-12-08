@@ -30,7 +30,7 @@
     <artifactId>oidc-sample-apps</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>WSO2 Application Server - OIDC Sample Applications</name>
+    <name>Tomcat - Extension - Samples - OIDC Sample Applications</name>
 
     <dependencies>
         <dependency>
