@@ -11,16 +11,22 @@
 
  Tomcat 8 will be used to deploy web applications and WSO2 IS will be used as the identity provider that enables SSO and SLO.
 
-1. Download Tomcat 8 and extract the zip file to your computer. 
+1. Download Tomcat 8
+    (<https://tomcat.apache.org/download-80.cgi>)
+    
+   Extract the zip file to your computer.
    The extracted directory will be your &lt;Tomcat_HOME&gt; directory.
-2. Download WSO2 IS and extract the zip file to your computer. 
+2. Download WSO2 IS 5.2.0
+    (<http://wso2.com/products/identity-server/>)
+    
+    Extract the zip file to your computer.
    The extracted directory will be your &lt;IS_HOME&gt; directory.
 
 ## Step 2: Checkout the project ##
 
 Checkout the project using the below command
 
-    git clone https://github.com/Abilashini/tomcat-extension-openidsso.git
+    git clone https://github.com/wso2-extensions/tomcat-extension-openidsso.git
 
 ## Step 3: Register web applications on WSO2 Identity Server ##
 
@@ -31,26 +37,33 @@ Checkout the project using the below command
  1. Start the WSO2 IS using the below command in the bin directory
         ./wso2server.sh run
  2. Log into the management console of WSO2 IS by accessing <https://localhost:9443/carbon/>
+
+        Default credentials
+
+                Username : admin
+
+                Password : admin
+
  3. Click ‘Service Providers -> Add’ in the navigator.
  4. Enter 'coffee-shop' in the Service Provider Name field in the Add New Service Provider screen.
 
- ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-1.png)
+ ![alt tag](https://github.com/wso2-extensions/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-1.png)
 
  5. Click Register to open the Service Providers screen.
 
  6. Click ‘Inbound Authentication Configuration ->  OAuth/OpenID Connect Configuration’ and click ‘Configure’.
 
- ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-2.png)
+ ![alt tag](https://github.com/wso2-extensions/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-2.png)
 
  7. You can now start specifying the OIDC related configurations for the service provider.
 
 	enter http://localhost:8080/coffee-shop/openid under Callback Url.
         
- ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-3.png)
+ ![alt tag](https://github.com/wso2-extensions/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-3.png)
 
  8. You will receive a client key and a client secret.
     
- ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-4.png) 
+ ![alt tag](https://github.com/wso2-extensions/tomcat-extension-openidsso/blob/master/resources/Service-provider-register-4.png)
 
  9. Open the &lt;project_root&gt;/samples/oidc-sample-apps/coffee-shop/src/main/webapp/META-INF/oidc-config.xml
  
@@ -91,13 +104,13 @@ Start the tomcat server.
 
  1. Try accessing <http://localhost:8080/coffee-shop/>
 
- ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/home-page.png)
+ ![alt tag](https://github.com/wso2-extensions/tomcat-extension-openidsso/blob/master/resources/home-page.png)
 
  2. Click on ‘Sign In’.
 
  3. You will be re-directed to the Identity Server login page.
 
- ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-login.png)
+ ![alt tag](https://github.com/wso2-extensions/tomcat-extension-openidsso/blob/master/resources/IS-login.png)
 
  4. Login with your user credentials and click on ‘SIGN IN’.
 
@@ -109,7 +122,7 @@ Start the tomcat server.
 
  8. Click on ‘Logout’ in the pizza-shop app. It will redirect to Identity Server. 
 
- ![alt tag](https://github.com/Abilashini/tomcat-extension-openidsso/blob/master/resources/IS-logout.png)
+ ![alt tag](https://github.com/wso2-extensions/tomcat-extension-openidsso/blob/master/resources/IS-logout.png)
 
  9. Click on yes. 
 
