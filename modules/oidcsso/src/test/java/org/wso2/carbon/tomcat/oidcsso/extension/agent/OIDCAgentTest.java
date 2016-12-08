@@ -81,7 +81,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
- * This class defines unit-tests for OpenID Connect agent API class.
+ * This class defines unit-tests for OpenID Connect agent class.
  */
 public class OIDCAgentTest {
     private static final Path catalina_base = Paths.get(TestConstants.TEST_RESOURCES, TestConstants.CATALINA_BASE);

@@ -19,7 +19,7 @@
 package org.wso2.carbon.tomcat.oidcsso.extension.utils.exception;
 
 /**
- * This class defines a custom unchecked exception type specific to oidc tomcat extension.
+ * This class defines a custom unchecked exception type specific to OIDC tomcat extension.
  */
 public class OIDCConfigurationRuntimeException extends RuntimeException {
 

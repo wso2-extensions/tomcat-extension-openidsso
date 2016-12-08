@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * This is a sample java Servlet class to show the responses of OpenId Connect flow of the web app.
+ * This is a sample servlet class to show the responses of OpenId Connect flow of the web app.
  */
 public class CoffeeShopServlet extends HttpServlet {
     private static final long serialVersionUID = -7272130203914249633L;

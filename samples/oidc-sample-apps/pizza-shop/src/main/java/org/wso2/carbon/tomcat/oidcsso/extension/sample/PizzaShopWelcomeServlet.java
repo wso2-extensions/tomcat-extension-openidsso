@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Welcome servlet of a sample web app which redirects to signin to the web app.
+ * Welcome servlet of a sample web app which redirects to sign in to the web app.
  */
 public class PizzaShopWelcomeServlet extends HttpServlet {
     private static final long serialVersionUID = 1073624855309953889L;

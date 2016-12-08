@@ -77,7 +77,7 @@ public class OIDCSSOValve extends SingleSignOn {
             return;
         }
 
-        //Checks whether the request is a initial request to start the oidc flow by sending authentication request
+        //Checks whether the request is a initial request to start the OIDC flow by sending authentication request
         //to openid provider.
         if ((request.getRequestURI().endsWith(Constants.SIGN_IN)) && ((request.getSession(false) == null)
                 || (request.getSession(false).getAttribute(Constants.SESSION_BEAN) == null))) {

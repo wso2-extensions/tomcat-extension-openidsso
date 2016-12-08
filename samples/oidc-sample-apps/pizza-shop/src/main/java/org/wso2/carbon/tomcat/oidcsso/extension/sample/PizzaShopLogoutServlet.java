@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Sample java servlet to show if the user try to logout from already logged out web app.
+ * Sample servlet to show if the user try to logout from already logged out web app.
  */
 public class PizzaShopLogoutServlet extends HttpServlet {
     private static final long serialVersionUID = -7137737652718571683L;

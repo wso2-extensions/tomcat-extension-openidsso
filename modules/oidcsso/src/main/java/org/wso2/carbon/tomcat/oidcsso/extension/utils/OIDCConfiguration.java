@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A class which models a holder for web application specific OpenId Connect configurations.
+ * A class which models a holder for web application specific OpenID Connect configurations.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "oidc-config")

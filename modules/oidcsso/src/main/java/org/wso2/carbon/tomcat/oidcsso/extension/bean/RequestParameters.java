@@ -21,7 +21,7 @@ package org.wso2.carbon.tomcat.oidcsso.extension.bean;
 import java.util.Map;
 
 /**
- * A class which models a holder for the parameters defined by the user in the openID connect initializing request.
+ * A class which models a holder for the parameters defined by the user in the OpenID Connect initializing request.
  */
 public class RequestParameters {
     private String scope;
