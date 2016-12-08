@@ -1,4 +1,4 @@
-# tomcat-extension-openidsso #
+# Tomcat Extension - OpenID Connect based Single Sign On and Single Logout #
 
  OpenID Connect (OIDC) is an identity layer protocol on top of OAuth 2.0.
  This extension provides the capability of enabling SSO and SLO using OIDC for user applications via WSO2 Identity Server.
@@ -7,7 +7,7 @@
 
  We will use two web applications named ‘pizza-shop’ and ‘coffee-shop’  with WSO2 Identity server.
 
-## Step 1: Download and install Tomcat 8 and WSO2 IS. ##
+## Step 1: Download and install Tomcat 8 and WSO2 IS ##
 
  Tomcat 8 will be used to deploy web applications and WSO2 IS will be used as the identity provider that enables SSO and SLO.
 
